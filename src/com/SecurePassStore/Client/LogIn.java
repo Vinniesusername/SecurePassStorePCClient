@@ -1,10 +1,12 @@
 package com.SecurePassStore.Client;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import static com.SecurePassStore.App.Security.addPlayer;
+import static com.SecurePassStore.App.Security.checkUser;
 
 public class LogIn extends JFrame
 {
@@ -15,6 +17,7 @@ public class LogIn extends JFrame
     private JPasswordField passwordField;
     private JLabel passwordLabel;
     private JTextField usernameField;
+    private JButton newUserButton;
     private JButton loginButton;
 
     public LogIn()
@@ -29,7 +32,21 @@ public class LogIn extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                System.out.println("button pressed");
+                String username = usernameField.getText();
+                char[] password = passwordField.getPassword();
+                System.out.println(checkUser(username,password));
+
+
+            }
+        });
+        newUserButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                String username = usernameField.getText();
+                char[] password = passwordField.getPassword();
+                System.out.println(addPlayer(username, password));
 
             }
         });

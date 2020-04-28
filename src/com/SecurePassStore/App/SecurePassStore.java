@@ -1,11 +1,12 @@
 package com.SecurePassStore.App;
 
-import com.SecurePassStore.App.GeneratePassword;
+
+import com.SecurePassStore.Client.Client;
 
 public class SecurePassStore
 {
     public static void main(String[] args)
     {
-        System.out.println(GeneratePassword.Generate());
+        Client.main(new String[5]);
     }
 }
