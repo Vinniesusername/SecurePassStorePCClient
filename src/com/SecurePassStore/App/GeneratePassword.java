@@ -1,3 +1,5 @@
+package com.SecurePassStore.App;
+
 import java.security.SecureRandom;
 import java.util.Scanner; // remove once GUI is up
 
@@ -52,6 +54,6 @@ class GeneratePassword
     {
         return validChars.charAt(randomN);
     }
- 
+
 
 }
