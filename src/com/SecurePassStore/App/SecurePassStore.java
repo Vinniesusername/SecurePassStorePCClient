@@ -7,6 +7,6 @@ public class SecurePassStore
 {
     public static void main(String[] args)
     {
-        Client.main(new String[5]);
+        Client.main();
     }
 }

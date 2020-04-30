@@ -36,6 +36,7 @@ public class LogIn extends JFrame
                 String username = usernameField.getText();
                 char[] password = passwordField.getPassword();
                 System.out.println(checkUser(username,password));
+                Client.ClearPanel(rootPanel);
 
 
             }

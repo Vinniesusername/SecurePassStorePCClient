@@ -35,17 +35,24 @@ public class CreateAccout extends JFrame
 
                 if(Arrays.equals(passwordField1.getPassword(), passwordField2.getPassword()))
                 {
-                    String email = emailField.getText();
-                    char[] password = passwordField1.getPassword();
-                    if(addUser(email, password))
+                    if (passwordField1.getPassword().length < 8)
                     {
-                        System.out.println("user added");
-                        Client.DisposeCreate();
-
-                    }
-                    else
+                        System.out.println("master password must be at least 8 char");
+                    } else
                         {
-                        System.out.println("unable to add user");
+
+
+                        String email = emailField.getText();
+                        char[] password = passwordField1.getPassword();
+                        if (addUser(email, password)) {
+                            System.out.println("user added");
+                            Client.ClearPanel(rootPanel);
+                            Client.DisposeCreate();
+
+                        } else {
+                            System.out.println("unable to add user");
+                        }
+
                         }
 
                 }
@@ -55,7 +62,8 @@ public class CreateAccout extends JFrame
                 }
 
 
-            }
+                }
+
         }
         );
     }

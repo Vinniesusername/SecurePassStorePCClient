@@ -1,16 +1,19 @@
 package com.SecurePassStore.Client;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Client
 {
-    static LogIn login = new LogIn();
-    static CreateAccout createAccout = new CreateAccout();
+    private static LogIn login = new LogIn();
+    private static CreateAccout createAccout = new CreateAccout();
 
-    public static void main(String[] args)
+    public static void main()
     {
         showLogin();
     }
 
-    public static void showLogin()
+    static void showLogin()
     {
         login.setVisible(true);
     }
@@ -20,7 +23,7 @@ public class Client
         login.dispose();
     }
 
-    public static void showCreateAccount()
+    static void showCreateAccount()
     {
         createAccout.setVisible(true);
         createAccout.toFront();
@@ -28,9 +31,24 @@ public class Client
 
     }
 
-    public static void DisposeCreate()
+    static void DisposeCreate()
     {
         createAccout.dispose();
+    }
+
+    static void ClearPanel(JPanel root)
+    {
+        for(Component c: root.getComponents())
+        {
+            if(c instanceof JTextField)
+            {
+                ((JTextField) c).setText("");
+            }
+            else if(c instanceof JPasswordField)
+            {
+                ((JPasswordField)c).setText("");
+            }
+        }
     }
 
 }
