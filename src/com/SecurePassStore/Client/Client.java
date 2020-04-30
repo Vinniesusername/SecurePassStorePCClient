@@ -11,7 +11,7 @@ public class Client
     public static void main()
     {
         showLogin();
-        if(showDialog("This is only intended to be used for educational purposes. do not attempt to use this program " +
+        if(showDialog(0,"This is only intended to be used for educational purposes. do not attempt to use this program " +
                 "to handle your personal accounts. do you agree?", 1) != 0)
         {
             System.exit(0);
@@ -34,7 +34,7 @@ public class Client
     static void showCreateAccount()
     {
         createAccout.setVisible(true);
-        createAccout.toFront();
+        createAccout.setAlwaysOnTop(true);
         createAccout.requestFocus();
 
     }
@@ -59,24 +59,37 @@ public class Client
         }
     }
 
-    static int showDialog(String message, int type)
+    static int showDialog(int screen, String message, int type)
     {
+        JFrame root;
         int status = -1;
+        if (screen == 0)
+        {
+           root = login;
+        }
+        else if(screen == 1)
+        {
+            root = createAccout;
+        }
+        else
+        {
+            root = new JFrame();
+        }
         switch(type)
         {
             case 1: //type 1 = confirm message
             {
-                status = JOptionPane.showConfirmDialog(new JFrame(), message);
+                status = JOptionPane.showConfirmDialog(root, message);
                 break;
             }
             case 2: //type 2 = warning message
             {
-                JOptionPane.showMessageDialog(new JFrame(), message,"Error!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(root, message,"Error!", JOptionPane.ERROR_MESSAGE);
                 break;
             }
             case 3: //information case
             {
-                JOptionPane.showMessageDialog(new JFrame(), message, "Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(root, message, "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 

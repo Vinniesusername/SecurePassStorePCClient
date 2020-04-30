@@ -37,7 +37,7 @@ public class CreateAccout extends JFrame
                 {
                     if (passwordField1.getPassword().length < 8)
                     {
-                        Client.showDialog("Password must be more than 8 characters long", 2);
+                        Client.showDialog(1,"Password must be more than 8 characters long", 2);
                     } else
                         {
 
@@ -46,21 +46,21 @@ public class CreateAccout extends JFrame
                         char[] password = passwordField1.getPassword();
                         if (addUser(email, password))
                         {
-                            Client.showDialog("Account Created!", 3);
+                            Client.showDialog(1, "Account Created!", 3);
                             Client.ClearPanel(rootPanel);
                             Client.DisposeCreate();
 
                         }
                         else
                             {
-                            Client.showDialog("User Already Registered", 2);
+                            Client.showDialog(1,"User Already Registered", 2);
                         }
                         }
 
                 }
                 else
                 {
-                    Client.showDialog("Passwords do not match", 2);
+                    Client.showDialog(1,"Passwords do not match", 2);
                 }
 
 
