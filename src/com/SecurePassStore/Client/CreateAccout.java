@@ -21,7 +21,7 @@ public class CreateAccout extends JFrame
     CreateAccout()
     {
         add(rootPanel);
-        setSize(250, 150);
+        setSize(850, 350);
         setLocationRelativeTo(null);
         setTitle("Secure Password Store 0.1");
 
@@ -37,28 +37,30 @@ public class CreateAccout extends JFrame
                 {
                     if (passwordField1.getPassword().length < 8)
                     {
-                        System.out.println("master password must be at least 8 char");
+                        Client.showDialog("Password must be more than 8 characters long", 2);
                     } else
                         {
 
 
                         String email = emailField.getText();
                         char[] password = passwordField1.getPassword();
-                        if (addUser(email, password)) {
-                            System.out.println("user added");
+                        if (addUser(email, password))
+                        {
+                            Client.showDialog("Account Created!", 3);
                             Client.ClearPanel(rootPanel);
                             Client.DisposeCreate();
 
-                        } else {
-                            System.out.println("unable to add user");
                         }
-
+                        else
+                            {
+                            Client.showDialog("User Already Registered", 2);
+                        }
                         }
 
                 }
                 else
                 {
-                    System.out.println("passwords do not match");
+                    Client.showDialog("Passwords do not match", 2);
                 }
 
 

@@ -16,7 +16,9 @@ public class Security
         if (userInfo.containsKey(userName))
         {
             System.out.println("username is already registered");
-        } else
+            return false;
+        }
+        else
             {
 
             byte[][] details = new byte[16][16]; // holds salted password, and salt

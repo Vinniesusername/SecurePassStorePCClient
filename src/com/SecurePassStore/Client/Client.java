@@ -11,11 +11,19 @@ public class Client
     public static void main()
     {
         showLogin();
+        if(showDialog("This is only intended to be used for educational purposes. do not attempt to use this program " +
+                "to handle your personal accounts. do you agree?", 1) != 0)
+        {
+            System.exit(0);
+        }
+
+
     }
 
     static void showLogin()
     {
         login.setVisible(true);
+        login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void DisposeLogin()
@@ -49,6 +57,31 @@ public class Client
                 ((JPasswordField)c).setText("");
             }
         }
+    }
+
+    static int showDialog(String message, int type)
+    {
+        int status = -1;
+        switch(type)
+        {
+            case 1: //type 1 = confirm message
+            {
+                status = JOptionPane.showConfirmDialog(new JFrame(), message);
+                break;
+            }
+            case 2: //type 2 = warning message
+            {
+                JOptionPane.showMessageDialog(new JFrame(), message,"Error!", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+            case 3: //information case
+            {
+                JOptionPane.showMessageDialog(new JFrame(), message, "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+        return status;
+
     }
 
 }
