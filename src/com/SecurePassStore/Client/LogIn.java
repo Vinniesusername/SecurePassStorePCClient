@@ -24,9 +24,10 @@ public class LogIn extends JFrame
     LogIn()
     {
         add(rootPanel);
-        setSize(250, 150);
+        setSize(350, 150);
         setLocationRelativeTo(null);
         setTitle("Secure Password Store 0.1");
+        setResizable(false);
 
 
         logInButton.addActionListener(new ActionListener() {

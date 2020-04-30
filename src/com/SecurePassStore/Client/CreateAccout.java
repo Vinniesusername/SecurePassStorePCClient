@@ -23,6 +23,7 @@ public class CreateAccout extends JFrame
         add(rootPanel);
         setSize(850, 350);
         setLocationRelativeTo(null);
+        setResizable(false);
         setTitle("Secure Password Store 0.1");
 
         createAccountButton.addActionListener(new ActionListener()
@@ -30,8 +31,8 @@ public class CreateAccout extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                //add check for minimum number of chars
-                //add check for valid email format
+                //TODO: add check for  letters, numbers and symbols
+                //TODO: add check for valid email format
 
                 if(Arrays.equals(passwordField1.getPassword(), passwordField2.getPassword()))
                 {
