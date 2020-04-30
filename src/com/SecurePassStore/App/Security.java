@@ -10,7 +10,7 @@ public class Security
     // this is temporary until database integration
     private static HashMap<String, byte[][]> userInfo = new HashMap<>();
 
-    public static boolean addPlayer(String userName, char[] password)
+    public static boolean addUser(String userName, char[] password)
     {
 
         if (userInfo.containsKey(userName))
