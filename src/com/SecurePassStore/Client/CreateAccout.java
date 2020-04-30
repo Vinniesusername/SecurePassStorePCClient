@@ -18,7 +18,7 @@ public class CreateAccout extends JFrame
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
 
-    public CreateAccout()
+    CreateAccout()
     {
         add(rootPanel);
         setSize(250, 150);

@@ -21,7 +21,7 @@ public class LogIn extends JFrame
     private JButton newUserButton;
     private JButton loginButton;
 
-    public LogIn()
+    LogIn()
     {
         add(rootPanel);
         setSize(250, 150);

@@ -5,13 +5,15 @@ import java.util.Scanner; // remove once GUI is up
 
 class GeneratePassword
 {
-    private static  String lowerLetterList = "abcdefghijklmnopqrstuvwxyz";
-    private static String upperLetterList = lowerLetterList.toUpperCase();
-    private static String numbers = "123456789";
-    private static String symbols = "!@#$%^&*-_";
+
 
     static String Generate()
     {
+        String lowerLetterList = "abcdefghijklmnopqrstuvwxyz";
+        String upperLetterList = lowerLetterList.toUpperCase();
+        String numbers = "123456789";
+        String symbols = "!@#$%^&*-_";
+
         SecureRandom gen =  new SecureRandom();
         Scanner input = new Scanner(System.in);
         String valid = "";
