@@ -68,7 +68,7 @@
         <properties>
           <background color="-16777216"/>
           <font size="20"/>
-          <text value="Secure Password Store Version .01!"/>
+          <text value="Secure Password Store Version .1!"/>
         </properties>
       </component>
       <hspacer id="d8835">

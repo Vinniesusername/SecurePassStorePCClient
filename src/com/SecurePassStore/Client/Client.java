@@ -7,6 +7,7 @@ public class Client
 {
     private static LogIn login = new LogIn();
     private static CreateAccout createAccout = new CreateAccout();
+    private static MainLanding mainLanding = new MainLanding();
 
     public static void main()
     {
@@ -44,6 +45,17 @@ public class Client
         createAccout.dispose();
     }
 
+    static void showMainLanding(String username)
+    {
+        mainLanding.setVisible(true);
+        mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    static void DisposeMainLanding()
+    {
+        mainLanding.dispose();
+    }
+
     static void ClearPanel(JPanel root)
     {
         for(Component c: root.getComponents())
@@ -56,6 +68,21 @@ public class Client
             {
                 ((JPasswordField)c).setText("");
             }
+        }
+    }
+
+    static JFrame getFrame(int mode)
+    {
+        switch(mode)
+        {
+            case 0:
+                return login;
+            case 1:
+                return createAccout;
+            case 2:
+                return mainLanding;
+            default:
+                return new JFrame();
         }
     }
 
