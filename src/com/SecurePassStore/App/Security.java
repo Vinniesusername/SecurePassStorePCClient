@@ -1,9 +1,12 @@
 package com.SecurePassStore.App;
 
+import com.SecurePassStore.Client.Client;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HashMap;
+
 
 public class Security
 {
@@ -15,18 +18,18 @@ public class Security
 
         if (userInfo.containsKey(userName))
         {
-            System.out.println("username is already registered");
             return false;
         }
         else
             {
 
-            byte[][] details = new byte[16][16]; // holds salted password, and salt
+            byte[][] details = new byte[2][1]; // holds salted password, and salt
             byte[] salt = getSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
             details[0] = salt;
             details[1] = passwordHash;
             userInfo.put(userName, details);
+            System.out.println(byteArrayToHex(details[1]));
 
             }
         return true;
@@ -34,10 +37,11 @@ public class Security
 
     public static boolean checkUser(String name, char[] password)
     {
+        boolean matched = true;
         if(userInfo.containsKey(name))
         {
             byte[] passwordBytes = getPasswordHash(password, userInfo.get(name)[0]);
-            boolean matched = true;
+
             for (int i = 0; i < userInfo.get(name)[1].length; i++)
             {
                 if (userInfo.get(name)[1][i] != passwordBytes[i])
@@ -45,13 +49,14 @@ public class Security
                     matched = false;
                 }
             }
-            return matched;
+
 
         } else
             {
             System.out.println("username doesnt exisit");
+            matched = false;
         }
-        return false;
+        return matched;
     }
 
     private static byte[] getSalt()
@@ -75,5 +80,21 @@ public class Security
             System.exit(-1);
         }
         return hashedPassword;
+    }
+
+    private static String byteArrayToHex(byte[] byteArray)
+    {
+        StringBuilder password = new StringBuilder();
+        for(byte b: byteArray)
+        {
+            password.append(String.format("%02x", b));
+        }
+
+        return password.toString();
+    }
+
+    private static byte[] hexStringToByteArray(String hexString)
+    {
+        return new byte[0];
     }
 }

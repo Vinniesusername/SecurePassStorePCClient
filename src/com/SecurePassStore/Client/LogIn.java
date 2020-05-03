@@ -40,6 +40,10 @@ public class LogIn extends JFrame
                 {
                     Client.showMainLanding(username);
                 }
+                else
+                {
+                    Client.showDialog(0, "Log In Failed", 2);
+                }
                 Client.ClearPanel(rootPanel);
 
 

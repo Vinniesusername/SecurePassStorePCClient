@@ -43,7 +43,7 @@ class GeneratePassword
 
         for(int x = 0; x < n; x++)
         {
-            int randomNumber = (gen.nextInt() & Integer.MAX_VALUE) % valid.length();
+            int randomNumber = (gen.nextInt() & Integer.MAX_VALUE) % valid.length(); // & to zero out the sign bit
             char next = pickChar(valid, randomNumber);
             password.append(next);
         }
