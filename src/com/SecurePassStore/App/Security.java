@@ -35,27 +35,25 @@ public class Security
         return true;
     }
 
-    public static boolean checkUser(String name, char[] password)
+    public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesnt exist
     {
-        boolean matched = true;
-        if(userInfo.containsKey(name))
-        {
+        int matched = 1;
+        if(userInfo.containsKey(name)) {
             byte[] passwordBytes = getPasswordHash(password, userInfo.get(name)[0]);
 
             for (int i = 0; i < userInfo.get(name)[1].length; i++)
             {
                 if (userInfo.get(name)[1][i] != passwordBytes[i])
                 {
-                    matched = false;
+                    matched = 0;
                 }
             }
 
-
-        } else
-            {
-            System.out.println("username doesnt exisit");
-            matched = false;
         }
+        else
+            matched = 2;
+
+
         return matched;
     }
 
@@ -76,8 +74,10 @@ public class Security
             md.reset();
             md.update(salt);
             hashedPassword = md.digest(passwordBytes); //get hashed bytes
-        } catch (NoSuchAlgorithmException e) {
-            System.exit(-1);
+        } catch (NoSuchAlgorithmException e)
+        {
+
+            System.exit(1);
         }
         return hashedPassword;
     }
@@ -96,5 +96,46 @@ public class Security
     private static byte[] hexStringToByteArray(String hexString)
     {
         return new byte[0];
+    }
+
+    public static boolean validPasswordCheck(char[] password)
+    {
+        boolean valid = false;
+        boolean numbers = false;
+        boolean upper = false;
+        boolean lower = false;
+        boolean symbols = false;
+        String passwordString = new String(password);
+
+        for(int i =0; i < passwordString.length(); i++)
+        {
+
+            if(Character.isDigit(passwordString.charAt(i)))
+                numbers = true;
+            else if(Character.isUpperCase(passwordString.charAt(i)))
+                upper = true;
+            else if(Character.isLowerCase(passwordString.charAt(i)))
+                lower = true;
+            else if(isSymbol(passwordString.charAt(i)))
+                symbols = true;
+            else
+                return false;
+        }
+        if(numbers && upper && lower && symbols)
+            valid = true;
+
+        return valid;
+    }
+
+    private static boolean isSymbol(char c)
+    {
+        boolean x = false;
+        String symbols = "!@#$%^&*";
+        if(symbols.indexOf(c) > -1)
+            x = true;
+        return x;
+
+
+
     }
 }

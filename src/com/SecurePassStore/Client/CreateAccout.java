@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-
+import static com.SecurePassStore.App.Security.validPasswordCheck;
 import static com.SecurePassStore.App.Security.addUser;
 
 public class CreateAccout extends JFrame
@@ -36,10 +36,19 @@ public class CreateAccout extends JFrame
 
                 if(Arrays.equals(passwordField1.getPassword(), passwordField2.getPassword()))
                 {
-                    if (passwordField1.getPassword().length < 8)
+                    if (passwordField1.getPassword().length <= 8)
                     {
                         Client.showDialog(1,"Password must be more than 8 characters long", 2);
-                    } else
+                    } else if(emailField.getText().length() < 6)
+                    {
+                        Client.showDialog(1, "User name must be at least 6 letters", 2);
+                    }
+                    else if(!validPasswordCheck(passwordField1.getPassword()))
+                    {
+                        Client.showDialog(1, "password must contain at least one upper case, lower case" +
+                                ", number and symbol", 2);
+                    }
+                    else
                         {
 
 

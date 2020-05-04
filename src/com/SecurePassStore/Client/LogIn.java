@@ -36,13 +36,17 @@ public class LogIn extends JFrame
             {
                 String username = usernameField.getText();
                 char[] password = passwordField.getPassword();
-                if(checkUser(username, password))
+                if(checkUser(username, password) == 1)
                 {
                     Client.showMainLanding(username);
                 }
+                else if(checkUser(username, password) == 0)
+                {
+                    Client.showDialog(0, "Log In Failed, Wrong password", 2);
+                }
                 else
                 {
-                    Client.showDialog(0, "Log In Failed", 2);
+                    Client.showDialog(0, "user name does not exist. Create a new account", 2);
                 }
                 Client.ClearPanel(rootPanel);
 
