@@ -39,16 +39,22 @@ class DataHandler
         boolean added = false;
         try
         {
-            Statement state = handler.db.createStatement();
-            String sql = "insert into users " +
-                    "(username, password, salt) " +
-                    "values ( '" + user + "' , '" + passwordHash + "' , '" + salt + "')";
-            state.execute(sql);
+
+            final String sqlInsert = "INSERT INTO USERS (USERNAME, PASSWORD, SALT) VALUES (?,?,?)";
+            PreparedStatement state = handler.db.prepareStatement(sqlInsert);
+            state.setString(1, user);
+            state.setString(2, passwordHash);
+            state.setString(3, salt);
+            state.executeUpdate();
             added = true;
         }
         catch (Exception e)
         {
             System.out.println(e);
+        }
+        finally
+        {
+            try{db.close();}catch (Exception e){System.out.println(e);}
         }
 
 
@@ -59,11 +65,26 @@ class DataHandler
     {
         return true;
     }
+
      public static  DataHandler getInstance()
      {
          if(handler == null)
              handler = new DataHandler();
          return handler;
+
+     }
+
+     public void closeQuite()
+     {
+         try
+         {
+             db.close();
+         }
+         catch (Exception e)
+         {
+             System.out.println(e);
+         }
+
 
      }
 

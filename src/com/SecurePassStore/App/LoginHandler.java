@@ -14,7 +14,7 @@ public class LoginHandler
 {
     // this is temporary until database integration
     private static HashMap<String, byte[][]> userInfo = new HashMap<>();
-    private static DataHandler handler = DataHandler.getInstance();
+    private static DataHandler dataHandler = DataHandler.getInstance();
 
     public static boolean addUser(String userName, char[] password)
     {
@@ -32,9 +32,7 @@ public class LoginHandler
             details[0] = salt;
             details[1] = passwordHash;
             userInfo.put(userName, details);
-            added = handler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
-
-
+            added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
 
             }
         return added;
