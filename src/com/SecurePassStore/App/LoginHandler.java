@@ -3,7 +3,9 @@ package com.SecurePassStore.App;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Array;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.HashMap;
 import com.SecurePassStore.App.DataHandler;
 
@@ -30,7 +32,6 @@ public class LoginHandler
             details[0] = salt;
             details[1] = passwordHash;
             userInfo.put(userName, details);
-            System.out.println(byteArrayToHex(details[1]));
             added = handler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
 
 
@@ -95,7 +96,16 @@ public class LoginHandler
 
     private static byte[] hexStringToByteArray(String hexString)
     {
-        return new byte[0];
+        int size = hexString.length();
+        byte[] byteArray = new byte[size /2];
+        for(int i = 0; i < size; i+= 2)
+        {
+            byteArray[i/2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) +
+                    Character.digit(hexString.charAt(i+1), 16));
+
+        }
+
+        return byteArray;
     }
 
     public static boolean validPasswordCheck(char[] password)
