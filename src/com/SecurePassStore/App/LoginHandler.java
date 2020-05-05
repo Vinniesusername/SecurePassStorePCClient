@@ -1,24 +1,25 @@
 package com.SecurePassStore.App;
 
-import com.SecurePassStore.Client.Client;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Statement;
 import java.util.HashMap;
+import com.SecurePassStore.App.DataHandler;
 
 
-public class Security
+public class LoginHandler
 {
     // this is temporary until database integration
     private static HashMap<String, byte[][]> userInfo = new HashMap<>();
+    private static DataHandler handler = DataHandler.getInstance();
 
     public static boolean addUser(String userName, char[] password)
     {
-
+        boolean added = false;
         if (userInfo.containsKey(userName))
         {
-            return false;
+            return added;
         }
         else
             {
@@ -30,9 +31,12 @@ public class Security
             details[1] = passwordHash;
             userInfo.put(userName, details);
             System.out.println(byteArrayToHex(details[1]));
+            added = handler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
+
+
 
             }
-        return true;
+        return added;
     }
 
     public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesnt exist
@@ -48,19 +52,16 @@ public class Security
                     matched = 0;
                 }
             }
-
         }
         else
             matched = 2;
-
-
         return matched;
     }
 
     private static byte[] getSalt()
     {
         SecureRandom saltGen = new SecureRandom();
-        byte[] salt = new byte[16];
+        byte[] salt = new byte[32];
         saltGen.nextBytes(salt);
         return salt;
     }
@@ -89,7 +90,6 @@ public class Security
         {
             password.append(String.format("%02x", b));
         }
-
         return password.toString();
     }
 
@@ -127,6 +127,7 @@ public class Security
         return valid;
     }
 
+
     private static boolean isSymbol(char c)
     {
         boolean x = false;
@@ -134,8 +135,5 @@ public class Security
         if(symbols.indexOf(c) > -1)
             x = true;
         return x;
-
-
-
     }
 }

@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import static com.SecurePassStore.App.Security.validPasswordCheck;
-import static com.SecurePassStore.App.Security.addUser;
+import static com.SecurePassStore.App.LoginHandler.validPasswordCheck;
+import static com.SecurePassStore.App.LoginHandler.addUser;
 
 public class CreateAccout extends JFrame
 {
@@ -31,7 +31,6 @@ public class CreateAccout extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                //TODO: add check for  letters, numbers and symbols
                 //TODO: add check for valid email format
 
                 if(Arrays.equals(passwordField1.getPassword(), passwordField2.getPassword()))
@@ -50,8 +49,6 @@ public class CreateAccout extends JFrame
                     }
                     else
                         {
-
-
                         String email = emailField.getText();
                         char[] password = passwordField1.getPassword();
                         if (addUser(email, password))
@@ -59,23 +56,18 @@ public class CreateAccout extends JFrame
                             Client.showDialog(1, "Account Created!", 3);
                             Client.ClearPanel(rootPanel);
                             Client.DisposeCreate();
-
                         }
                         else
                             {
                             Client.showDialog(1,"User Already Registered", 2);
                         }
                         }
-
                 }
                 else
                 {
                     Client.showDialog(1,"Passwords do not match", 2);
                 }
-
-
-                }
-
+            }
         }
         );
     }

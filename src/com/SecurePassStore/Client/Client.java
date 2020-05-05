@@ -17,8 +17,6 @@ public class Client
         {
             System.exit(0);
         }
-
-
     }
 
     static void showLogin()
@@ -37,7 +35,6 @@ public class Client
         createAccout.setVisible(true);
         createAccout.setAlwaysOnTop(true);
         createAccout.requestFocus();
-
     }
 
     static void DisposeCreate()
@@ -119,9 +116,6 @@ public class Client
                 JOptionPane.showMessageDialog(root, message, "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-
         return status;
-
     }
-
 }

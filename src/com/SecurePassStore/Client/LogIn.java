@@ -3,11 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import static com.SecurePassStore.App.Security.addUser;
-import static com.SecurePassStore.App.Security.checkUser;
+import static com.SecurePassStore.App.LoginHandler.checkUser;
 
 public class LogIn extends JFrame
 {
@@ -29,7 +25,6 @@ public class LogIn extends JFrame
         setTitle("Secure Password Store 0.1");
         setResizable(false);
 
-
         logInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
@@ -49,8 +44,6 @@ public class LogIn extends JFrame
                     Client.showDialog(0, "user name does not exist. Create a new account", 2);
                 }
                 Client.ClearPanel(rootPanel);
-
-
             }
         });
         newUserButton.addActionListener(new ActionListener()
@@ -59,8 +52,6 @@ public class LogIn extends JFrame
             public void actionPerformed(ActionEvent actionEvent)
             {
                Client.showCreateAccount();
-
-
             }
         });
     }
