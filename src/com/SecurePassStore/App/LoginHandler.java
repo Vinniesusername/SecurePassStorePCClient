@@ -12,14 +12,13 @@ import com.SecurePassStore.App.DataHandler;
 
 public class LoginHandler
 {
-    // this is temporary until database integration
-    private static HashMap<String, byte[][]> userInfo = new HashMap<>();
+
     private static DataHandler dataHandler = DataHandler.getInstance();
 
     public static boolean addUser(String userName, char[] password)
     {
         boolean added = false;
-        if (userInfo.containsKey(userName))
+        if (dataHandler.contains(userName))
         {
             return added;
         }
@@ -31,7 +30,6 @@ public class LoginHandler
             byte[] passwordHash = getPasswordHash(password, salt);
             details[0] = salt;
             details[1] = passwordHash;
-            userInfo.put(userName, details);
             added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
 
             }
@@ -41,12 +39,13 @@ public class LoginHandler
     public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesnt exist
     {
         int matched = 1;
-        if(userInfo.containsKey(name)) {
-            byte[] passwordBytes = getPasswordHash(password, userInfo.get(name)[0]);
+        if(dataHandler.contains(name)) {
+            byte[] passwordBytes = getPasswordHash(password, hexStringToByteArray(dataHandler.getSalt(name)));
+            byte[] passwordRecord = hexStringToByteArray(dataHandler.getPassword(name));
 
-            for (int i = 0; i < userInfo.get(name)[1].length; i++)
+            for (int i = 0; i < passwordBytes.length; i++)
             {
-                if (userInfo.get(name)[1][i] != passwordBytes[i])
+                if (passwordRecord[i] != passwordBytes[i])
                 {
                     matched = 0;
                 }
@@ -95,6 +94,10 @@ public class LoginHandler
     private static byte[] hexStringToByteArray(String hexString)
     {
         int size = hexString.length();
+        if(size == 0)
+        {
+           System.exit(-1);
+        }
         byte[] byteArray = new byte[size /2];
         for(int i = 0; i < size; i+= 2)
         {

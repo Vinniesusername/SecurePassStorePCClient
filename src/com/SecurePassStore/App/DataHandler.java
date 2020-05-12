@@ -27,7 +27,7 @@ class DataHandler
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            System.out.println(e + "connect to db");
             System.exit(-1);
         }
 
@@ -50,20 +50,37 @@ class DataHandler
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            System.out.println(e + "|| add user");
         }
         finally
         {
-            try{db.close();}catch (Exception e){System.out.println(e);}
+            //do something
         }
 
 
         return added;
     }
 
-    boolean checkUser(String user, String password)
+    String getPassword(String user)
     {
-        return true;
+        String hashedPassword = null;
+        String q = "SELECT password FROM users WHERE username= ?";
+
+       try
+       {
+           PreparedStatement state = db.prepareStatement(q);
+           state.setString(1, user);
+           ResultSet results = state.executeQuery();
+           results.next();
+           hashedPassword = results.getString(1);
+       }
+       catch(Exception e)
+        {
+            System.out.println(e + " password");
+        }
+
+
+        return hashedPassword;
     }
 
      public static  DataHandler getInstance()
@@ -74,6 +91,47 @@ class DataHandler
 
      }
 
+     public boolean  contains(String username)
+     {
+         //TODO: this function
+         boolean contains =  false;
+         String sql = "Select 1 from users where username = ?";
+         try
+         {
+            PreparedStatement state = db.prepareStatement(sql);
+            state.setString(1, username);
+            ResultSet results = state.executeQuery();
+            contains = results.next();
+
+         }
+         catch (Exception e)
+         {
+             System.out.println(e + "||| contains");
+         }
+         return contains;
+     }
+
+     public String getSalt(String username)
+     {
+         String salt = "";
+         String q = "SELECT salt FROM users WHERE username=?";
+         try
+         {
+             PreparedStatement state = db.prepareStatement(q);
+             state.setString(1, username);
+             ResultSet results = state.executeQuery();
+             results.next();
+             salt = results.getString(1);
+
+         }
+         catch (Exception e)
+         {
+             System.out.println(e + " salt") ;
+         }
+         return salt;
+     }
+
+
      public void closeQuite()
      {
          try
@@ -82,11 +140,8 @@ class DataHandler
          }
          catch (Exception e)
          {
-             System.out.println(e);
-             
+             System.out.println(e + " close");
          }
-
-
      }
 
 }
