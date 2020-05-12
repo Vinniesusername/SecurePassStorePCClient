@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import java.sql.Array;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.HashMap;
 import com.SecurePassStore.App.DataHandler;
 
 
@@ -25,11 +24,9 @@ public class LoginHandler
         else
             {
 
-            byte[][] details = new byte[2][1]; // holds salted password, and salt
+
             byte[] salt = getSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
-            details[0] = salt;
-            details[1] = passwordHash;
             added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
 
             }
