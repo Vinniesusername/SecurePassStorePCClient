@@ -17,6 +17,7 @@ public class CreateAccout extends JFrame
     private JLabel emailLabel;
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
+    private JRadioButton accKeyButton;
 
     CreateAccout()
     {

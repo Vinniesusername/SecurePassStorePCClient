@@ -3,11 +3,6 @@ package com.SecurePassStore.App;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Array;
-import java.sql.Statement;
-import java.util.Arrays;
-import com.SecurePassStore.App.DataHandler;
-
 
 public class LoginHandler
 {
@@ -23,12 +18,9 @@ public class LoginHandler
         }
         else
             {
-
-
             byte[] salt = getSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
             added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
-
             }
         return added;
     }
@@ -45,6 +37,7 @@ public class LoginHandler
                 if (passwordRecord[i] != passwordBytes[i])
                 {
                     matched = 0;
+                    break;
                 }
             }
         }
@@ -144,4 +137,6 @@ public class LoginHandler
             x = true;
         return x;
     }
+
+
 }

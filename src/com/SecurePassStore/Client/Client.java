@@ -65,6 +65,10 @@ public class Client
             {
                 ((JPasswordField)c).setText("");
             }
+            else if(c instanceof JRadioButton)
+            {
+                ((JRadioButton)c).setSelected(false);
+            }
         }
     }
 

@@ -3,9 +3,9 @@ package com.SecurePassStore.App;
 import java.security.SecureRandom;
 import java.util.Scanner; // remove once GUI is up
 
-class GeneratePassword
+class Generator
 {
-    static String Generate()
+    public String generateNewPassword()
     {
         String lowerLetterList = "abcdefghijklmnopqrstuvwxyz";
         String upperLetterList = lowerLetterList.toUpperCase();
@@ -50,5 +50,17 @@ class GeneratePassword
     private static char pickChar(String validChars, int randomN)
     {
         return validChars.charAt(randomN);
+    }
+
+    public String generateLocalKey()
+    {
+        //TODO: pick key to used to encrypt passwords alongside master password
+        return "";
+    }
+
+    static String readAccKey()
+    {
+        //TODO: read acc key from disk
+        return "";
     }
 }
