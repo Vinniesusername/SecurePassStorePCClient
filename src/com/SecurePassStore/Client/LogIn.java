@@ -16,6 +16,7 @@ public class LogIn extends JFrame
     private JTextField usernameField;
     private JButton newUserButton;
     private JButton loginButton;
+    private static Client client = Client.getClientInstance();
 
     LogIn()
     {
@@ -33,17 +34,17 @@ public class LogIn extends JFrame
                 char[] password = passwordField.getPassword();
                 if(checkUser(username, password) == 1)
                 {
-                    Client.showMainLanding(username);
+                    client.showMainLanding(username);
                 }
                 else if(checkUser(username, password) == 0)
                 {
-                    Client.showDialog(0, "Log In Failed, Wrong password", 2);
+                    client.showDialog(0, "Log In Failed, Wrong password", 2);
                 }
                 else
                 {
-                    Client.showDialog(0, "user name does not exist. Create a new account", 2);
+                    client.showDialog(0, "user name does not exist. Create a new account", 2);
                 }
-                Client.ClearPanel(rootPanel);
+                client.ClearPanel(rootPanel);
             }
         });
         newUserButton.addActionListener(new ActionListener()
@@ -51,7 +52,7 @@ public class LogIn extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-               Client.showCreateAccount();
+               client.showCreateAccount();
             }
         });
     }

@@ -5,12 +5,49 @@ import java.awt.*;
 
 public class Client
 {
-    private static LogIn login = new LogIn();
-    private static CreateAccout createAccout = new CreateAccout();
-    private static MainLanding mainLanding = new MainLanding();
-    private static CreateAccountAdv cAAdv = new CreateAccountAdv();
+    private static  Client clientHandler;
+    private LogIn login = new LogIn();
+    private CreateAccout createAccout = CreateAccout.getInstance();
+    private MainLanding mainLanding = new MainLanding();
+    private CreateAccountAdv cAAdv = new CreateAccountAdv();
 
-    public static void main()
+    private Client()
+    {
+
+
+    }
+    public static Client getClientInstance()
+    {
+        if(clientHandler == null)
+            clientHandler = new Client();
+        return clientHandler;
+    }
+
+    void passInfo(String[] info, int receiver)
+    {
+        //TODO: change numbering when other passinfo options are implemented
+        switch (receiver)
+        {
+            case 0:
+                createAccout.getInfo(info);
+                break;
+        }
+
+    }
+
+    void actOnInfo(int frame)
+    {
+        switch(frame)
+        {
+            case 0:
+                createAccout.actOnInfo();
+
+        }
+
+    }
+
+
+    public void startup()
     {
         showLogin();
         if(showDialog(0,"This is only intended to be used for educational purposes. do not attempt to use this program " +
@@ -20,55 +57,55 @@ public class Client
         }
     }
 
-    static void showLogin()
+    public void showLogin()
     {
-        login.setVisible(true);
-        login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        clientHandler.login.setVisible(true);
+        clientHandler.login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void DisposeLogin()
     {
-        login.dispose();
+        clientHandler.login.dispose();
     }
 
-    static void showCreateAccount()
+    void showCreateAccount()
     {
-        createAccout.setVisible(true);
-        createAccout.setAlwaysOnTop(true);
-        createAccout.requestFocus();
+        clientHandler.createAccout.setVisible(true);
+        clientHandler.createAccout.setAlwaysOnTop(true);
+        clientHandler.createAccout.requestFocus();
     }
 
-    static void ShowCreateAccountADV()
+    void ShowCreateAccountADV()
     {
-        cAAdv.setVisible(true);
-        cAAdv.setAlwaysOnTop(true);
+        clientHandler.cAAdv.setVisible(true);
+        clientHandler.cAAdv.setAlwaysOnTop(true);
 
 
     }
 
-    static void disposeCreateAccountADV()
+    void disposeCreateAccountADV()
     {
-        cAAdv.dispose();
+        clientHandler.cAAdv.dispose();
         ;
     }
 
-    static void DisposeCreate()
+    void DisposeCreate()
     {
-        createAccout.dispose();
+        clientHandler.createAccout.dispose();
     }
 
-    static void showMainLanding(String username)
+    void showMainLanding(String username)
     {
-        mainLanding.setVisible(true);
-        mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        clientHandler.mainLanding.setVisible(true);
+        clientHandler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    static void DisposeMainLanding()
+    void DisposeMainLanding()
     {
-        mainLanding.dispose();
+        clientHandler.mainLanding.dispose();
     }
 
-    static void ClearPanel(JPanel root)
+    void ClearPanel(JPanel root)
     {
         for(Component c: root.getComponents())
         {
@@ -87,38 +124,38 @@ public class Client
         }
     }
 
-    static JFrame getFrame(int mode)
+    JFrame getFrame(int mode)
     {
         switch(mode)
         {
             case 0:
-                return login;
+                return clientHandler.login;
             case 1:
-                return createAccout;
+                return clientHandler.createAccout;
             case 2:
-                return mainLanding;
+                return clientHandler.mainLanding;
             case 3:
-                return cAAdv;
+                return clientHandler.cAAdv;
             default:
                 return new JFrame();
         }
     }
 
-    static int showDialog(int screen, String message, int type)
+    int showDialog(int screen, String message, int type)
     {
         JFrame root;
         int status = -1;
         if (screen == 0)
         {
-           root = login;
+           root = clientHandler.login;
         }
         else if(screen == 1)
         {
-            root = createAccout;
+            root = clientHandler.createAccout;
         }
         else if(screen == 2)
         {
-            root = cAAdv;
+            root = clientHandler.cAAdv;
         }
         else
         {

@@ -1,13 +1,13 @@
 package com.SecurePassStore.Client;
 
 import com.SecurePassStore.App.Generator;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
 
 public class CreateAccountAdv extends JFrame {
     private JRadioButton enableLocalKeyRadioButton;
@@ -21,8 +21,7 @@ public class CreateAccountAdv extends JFrame {
     private JRadioButton includeLowerCaseRadioButton;
     private JSlider charSlider;
     private JLabel slideLabel;
-
-
+    private static Client client = Client.getClientInstance();
 
     public CreateAccountAdv() {
         add(rootPanel);
@@ -30,7 +29,6 @@ public class CreateAccountAdv extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("Secure Password Store 0.1");
-
 
 
         generateMasterPasswordButton.addActionListener(new ActionListener() {
@@ -49,7 +47,7 @@ public class CreateAccountAdv extends JFrame {
                 }
                 else
                 {
-                    Client.showDialog(2, "must select at least one type of character", 2);
+                    client.showDialog(2, "must select at least one type of character", 2);
                 }
 
 
@@ -69,7 +67,13 @@ public class CreateAccountAdv extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                scanInfo(suggestedPasswordField.getText(), enableLocalKeyRadioButton.isSelected());
+                String[] info = new String[2];
+                info[0] = suggestedPasswordField.getText();
+                info[1] = String.valueOf(enableLocalKeyRadioButton.isSelected());
+                client.passInfo(info, 0);
+                client.actOnInfo(0);
+                client.disposeCreateAccountADV();
+
 
             }
         });

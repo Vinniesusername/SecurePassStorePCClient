@@ -8,7 +8,7 @@ public class SecurePassStore
     public static void main(String[] args)
     {
 
-        Client.main();
+        Client.getClientInstance().startup();
 
     }
 }

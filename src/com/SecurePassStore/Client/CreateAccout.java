@@ -19,14 +19,21 @@ public class CreateAccout extends JFrame
     private JLabel passwordLabel2;
     private JButton advOptionsButton;
     private static Client client = Client.getClientInstance();
+    private String suggestedPassword = null;
+    private boolean localKey = false;
+    private static CreateAccout createhandler;
 
-    CreateAccout()
+
+    private CreateAccout()
     {
+
         add(rootPanel);
         setSize(850, 350);
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("Secure Password Store 0.1");
+        System.out.println("hello world");
+
 
         createAccountButton.addActionListener(new ActionListener()
         {
@@ -80,4 +87,32 @@ public class CreateAccout extends JFrame
             }
         });
     }
+
+    String[] getInfo(String[] info)
+    {
+        if(info[0] != null)
+            suggestedPassword = info[0];
+        localKey = Boolean.getBoolean(info[1]);
+        return info;
+    }
+
+    void actOnInfo()
+    {
+        passwordField1.setText(suggestedPassword);
+        passwordField2.setText(suggestedPassword);
+
+        emailField.repaint();
+        passwordField1.repaint();
+
+
+    }
+
+    public static CreateAccout getInstance()
+    {
+        if(createhandler == null)
+            createhandler = new CreateAccout();
+        return createhandler;
+    }
+
+
 }

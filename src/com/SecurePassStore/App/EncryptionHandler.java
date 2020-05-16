@@ -1,16 +1,15 @@
 package com.SecurePassStore.App;
 //TODO implement methods
-public class encryptionHandler
+public class EncryptionHandler
 {
     private byte[] key = null;
-    public encryptionHandler(byte[] k)
+    public EncryptionHandler(byte[] k)
     {
         key = k;
     }
 
     public byte[] encryptPassword(byte[] password)
     {
-
         return null;
     }
 
