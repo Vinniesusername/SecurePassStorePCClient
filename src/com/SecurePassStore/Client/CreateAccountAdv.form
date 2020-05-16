@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.SecurePassStore.Client.CreateAccountAdv">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="718" height="244"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="95668" class="javax.swing.JRadioButton" binding="enableLocalKeyRadioButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Enable Local Key"/>
+          <toolTipText value="Only enable if you fully understand what local key encryption means. find more in readme"/>
+        </properties>
+      </component>
+      <component id="59961" class="javax.swing.JTextField" binding="suggestedPasswordField">
+        <constraints>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="4" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+        </properties>
+      </component>
+      <component id="a7243" class="javax.swing.JButton" binding="generateMasterPasswordButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Generate Master Password"/>
+        </properties>
+      </component>
+      <component id="5718b" class="javax.swing.JButton" binding="saveOptionsAndSelectButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Save Options and select password"/>
+        </properties>
+      </component>
+      <component id="d6321" class="javax.swing.JRadioButton" binding="includeUpperCaseRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Include Upper Case"/>
+        </properties>
+      </component>
+      <component id="968b4" class="javax.swing.JRadioButton" binding="includeSymbolsRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Include Symbols"/>
+        </properties>
+      </component>
+      <component id="536c4" class="javax.swing.JRadioButton" binding="includeNumbersRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Include Numbers"/>
+        </properties>
+      </component>
+      <component id="33923" class="javax.swing.JRadioButton" binding="includeLowerCaseRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Include Lower Case"/>
+        </properties>
+      </component>
+      <component id="e44e9" class="javax.swing.JLabel" binding="slideLabel">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="8"/>
+        </properties>
+      </component>
+      <component id="f048d" class="javax.swing.JSlider" binding="charSlider">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <inverted value="false"/>
+          <maximum value="35"/>
+          <minimum value="8"/>
+          <name value="Number of Characters"/>
+          <value value="8"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

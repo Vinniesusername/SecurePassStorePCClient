@@ -8,6 +8,7 @@ public class Client
     private static LogIn login = new LogIn();
     private static CreateAccout createAccout = new CreateAccout();
     private static MainLanding mainLanding = new MainLanding();
+    private static CreateAccountAdv cAAdv = new CreateAccountAdv();
 
     public static void main()
     {
@@ -35,6 +36,20 @@ public class Client
         createAccout.setVisible(true);
         createAccout.setAlwaysOnTop(true);
         createAccout.requestFocus();
+    }
+
+    static void ShowCreateAccountADV()
+    {
+        cAAdv.setVisible(true);
+        cAAdv.setAlwaysOnTop(true);
+
+
+    }
+
+    static void disposeCreateAccountADV()
+    {
+        cAAdv.dispose();
+        ;
     }
 
     static void DisposeCreate()
@@ -82,6 +97,8 @@ public class Client
                 return createAccout;
             case 2:
                 return mainLanding;
+            case 3:
+                return cAAdv;
             default:
                 return new JFrame();
         }
@@ -98,6 +115,10 @@ public class Client
         else if(screen == 1)
         {
             root = createAccout;
+        }
+        else if(screen == 2)
+        {
+            root = cAAdv;
         }
         else
         {

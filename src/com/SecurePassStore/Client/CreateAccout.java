@@ -17,7 +17,7 @@ public class CreateAccout extends JFrame
     private JLabel emailLabel;
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
-    private JRadioButton accKeyButton;
+    private JButton advOptionsButton;
 
     CreateAccout()
     {
@@ -71,5 +71,12 @@ public class CreateAccout extends JFrame
             }
         }
         );
+        advOptionsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                Client.ShowCreateAccountADV();
+            }
+        });
     }
 }

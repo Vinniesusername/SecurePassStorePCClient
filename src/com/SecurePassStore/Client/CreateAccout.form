@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="72" y="168" width="687" height="517"/>
+      <xy x="72" y="168" width="743" height="516"/>
     </constraints>
     <properties>
       <background color="-1187974"/>
@@ -71,11 +71,6 @@
           <text value="Secure Password Store Version .1!"/>
         </properties>
       </component>
-      <hspacer id="d8835">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
       <component id="5f29a" class="javax.swing.JLabel" binding="passwordLabel2">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -96,20 +91,19 @@
           <text value="Password"/>
         </properties>
       </component>
-      <hspacer id="9b0e2">
+      <component id="75c47" class="javax.swing.JButton" binding="advOptionsButton">
         <constraints>
-          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
-      <component id="e82cd" class="javax.swing.JRadioButton" binding="accKeyButton">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Enable Local Key"/>
-          <toolTipText value="Enables use of local key to encrypt data.  do not check unless you fully understand the consequences. read more in README.TXT"/>
+          <text value="Show Advanced Options"/>
         </properties>
       </component>
+      <hspacer id="77ac9">
+        <constraints>
+          <grid row="0" column="0" row-span="5" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>

@@ -3,41 +3,36 @@ package com.SecurePassStore.App;
 import java.security.SecureRandom;
 import java.util.Scanner; // remove once GUI is up
 
-class Generator
+public class Generator
 {
-    public String generateNewPassword()
+    public String generateNewPassword(int n, boolean lower, boolean upper, boolean numbers, boolean symbols)
     {
         String lowerLetterList = "abcdefghijklmnopqrstuvwxyz";
         String upperLetterList = lowerLetterList.toUpperCase();
-        String numbers = "123456789";
-        String symbols = "!@#$%^&*";
+        String usablenumbers = "123456789";
+        String usablesymbols = "!@#$%^&*";
 
         SecureRandom gen =  new SecureRandom();
-        Scanner input = new Scanner(System.in);
         String valid = "";
         StringBuilder password = new StringBuilder();
 
-        System.out.println("input number of char in password");
-        int n = Integer.parseInt(input.next());
-        System.out.println("1 for just low letters, 2 for upper, 3 to add numbers, 4 to add symbols");
-        int mode = Integer.parseInt(input.next());
-        switch(mode)
+        if(lower)
         {
-            case 1:
-                valid = lowerLetterList;
-                break;
-            case 2:
-                valid =  lowerLetterList + upperLetterList;
-                break;
-            case 3:
-                valid = lowerLetterList + upperLetterList + numbers;
-                break;
-            case 4:
-                valid = lowerLetterList + upperLetterList + numbers + symbols;
-                break;
-            default:
-                System.out.println("An Error Occurred");
+            valid += lowerLetterList;
         }
+        if(upper)
+        {
+            valid += upperLetterList;
+        }
+        if(numbers)
+        {
+            valid += usablenumbers;
+        }
+        if(symbols)
+        {
+            valid += usablesymbols;
+        }
+
 
         for(int x = 0; x < n; x++)
         {
