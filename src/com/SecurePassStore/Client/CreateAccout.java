@@ -18,6 +18,7 @@ public class CreateAccout extends JFrame
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
     private JButton advOptionsButton;
+    private static Client client = Client.getClientInstance();
 
     CreateAccout()
     {
@@ -38,14 +39,14 @@ public class CreateAccout extends JFrame
                 {
                     if (passwordField1.getPassword().length <= 8)
                     {
-                        Client.showDialog(1,"Password must be more than 8 characters long", 2);
+                        client.showDialog(1,"Password must be more than 8 characters long", 2);
                     } else if(emailField.getText().length() < 6)
                     {
-                        Client.showDialog(1, "User name must be at least 6 letters", 2);
+                        client.showDialog(1, "User name must be at least 6 letters", 2);
                     }
                     else if(!validPasswordCheck(passwordField1.getPassword()))
                     {
-                        Client.showDialog(1, "password must contain at least one upper case, lower case" +
+                        client.showDialog(1, "password must contain at least one upper case, lower case" +
                                 ", number and symbol", 2);
                     }
                     else
@@ -54,19 +55,19 @@ public class CreateAccout extends JFrame
                         char[] password = passwordField1.getPassword();
                         if (addUser(email, password))
                         {
-                            Client.showDialog(1, "Account Created!", 3);
-                            Client.ClearPanel(rootPanel);
-                            Client.DisposeCreate();
+                            client.showDialog(1, "Account Created!", 3);
+                            client.ClearPanel(rootPanel);
+                            client.DisposeCreate();
                         }
                         else
                             {
-                            Client.showDialog(1,"User Already Registered", 2);
+                            client.showDialog(1,"User Already Registered", 2);
                         }
                         }
                 }
                 else
                 {
-                    Client.showDialog(1,"Passwords do not match", 2);
+                    client.showDialog(1,"Passwords do not match", 2);
                 }
             }
         }
@@ -75,7 +76,7 @@ public class CreateAccout extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                Client.ShowCreateAccountADV();
+                client.ShowCreateAccountADV();
             }
         });
     }
