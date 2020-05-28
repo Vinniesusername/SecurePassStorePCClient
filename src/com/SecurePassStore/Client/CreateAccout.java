@@ -60,7 +60,7 @@ public class CreateAccout extends JFrame
                         {
                         String email = emailField.getText();
                         char[] password = passwordField1.getPassword();
-                        if (addUser(email, password))
+                        if (addUser(email, password, localKey))
                         {
                             client.showDialog(1, "Account Created!", 3);
                             client.ClearPanel(rootPanel);
@@ -92,7 +92,8 @@ public class CreateAccout extends JFrame
     {
         if(info[0] != null)
             suggestedPassword = info[0];
-        localKey = Boolean.getBoolean(info[1]);
+        localKey = Boolean.parseBoolean(info[1]);
+        System.out.println("CA: " + localKey);
         return info;
     }
 
@@ -100,6 +101,7 @@ public class CreateAccout extends JFrame
     {
         passwordField1.setText(suggestedPassword);
         passwordField2.setText(suggestedPassword);
+
 
         emailField.repaint();
         passwordField1.repaint();

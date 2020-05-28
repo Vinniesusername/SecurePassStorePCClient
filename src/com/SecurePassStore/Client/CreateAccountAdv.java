@@ -79,18 +79,6 @@ public class CreateAccountAdv extends JFrame {
         });
     }
 
-    private static String[] scanInfo(String password, boolean accKey)
-    {
-        String[] info = new String[2];
-        if(password.length() > 0)
-            info[0] = password;
-        info[1] = String.valueOf(accKey);
-
-        return info;
-
-
-    }
-
 
 
 }

@@ -6,6 +6,7 @@ class DataHandler
 
     public Connection db;
     private static DataHandler handler = null;
+
     private String user = "vinnie";
     private String password = "testpass";
 
@@ -34,17 +35,19 @@ class DataHandler
         return con;
     }
 
-    boolean addUser(String user, String passwordHash, String salt)
+    boolean addUser(String user, String passwordHash, String salt, boolean localKey)
     {
+        System.out.println("data: " + localKey);
         boolean added = false;
         try
         {
 
-            final String sqlInsert = "INSERT INTO USERS (USERNAME, PASSWORD, SALT) VALUES (?,?,?)";
+            final String sqlInsert = "INSERT INTO USERS (USERNAME, PASSWORD, SALT, LOCALKEY) VALUES (?,?,?,?)";
             PreparedStatement state = handler.db.prepareStatement(sqlInsert);
             state.setString(1, user);
             state.setString(2, passwordHash);
             state.setString(3, salt);
+            state.setBoolean(4, localKey);
             state.executeUpdate();
             added = true;
         }

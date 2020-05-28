@@ -1,7 +1,6 @@
 package com.SecurePassStore.App;
 
 import java.security.SecureRandom;
-import java.util.Scanner; // remove once GUI is up
 
 public class Generator
 {
@@ -53,9 +52,4 @@ public class Generator
         return "";
     }
 
-    static String readAccKey()
-    {
-        //TODO: read acc key from disk
-        return "";
-    }
 }

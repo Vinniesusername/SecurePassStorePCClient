@@ -4,12 +4,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+
 public class LoginHandler
 {
 
     private static DataHandler dataHandler = DataHandler.getInstance();
 
-    public static boolean addUser(String userName, char[] password)
+    public static boolean addUser(String userName, char[] password, boolean localKey)
     {
         boolean added = false;
         if (dataHandler.contains(userName))
@@ -20,7 +21,7 @@ public class LoginHandler
             {
             byte[] salt = getSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
-            added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt));
+            added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt), localKey);
             }
         return added;
     }
@@ -56,6 +57,7 @@ public class LoginHandler
 
     private static byte[] getPasswordHash(char[] password, byte[] salt)
     {
+        //TODO: update hash algorithm to something more secure before opening repo
         byte[] hashedPassword = null;
         byte[] passwordBytes = String.valueOf(password).getBytes();
         try {
