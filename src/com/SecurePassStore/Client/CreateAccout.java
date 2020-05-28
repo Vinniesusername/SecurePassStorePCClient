@@ -93,7 +93,6 @@ public class CreateAccout extends JFrame
         if(info[0] != null)
             suggestedPassword = info[0];
         localKey = Boolean.parseBoolean(info[1]);
-        System.out.println("CA: " + localKey);
         return info;
     }
 
@@ -101,7 +100,6 @@ public class CreateAccout extends JFrame
     {
         passwordField1.setText(suggestedPassword);
         passwordField2.setText(suggestedPassword);
-
 
         emailField.repaint();
         passwordField1.repaint();

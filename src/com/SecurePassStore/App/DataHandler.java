@@ -37,7 +37,6 @@ class DataHandler
 
     boolean addUser(String user, String passwordHash, String salt, boolean localKey)
     {
-        System.out.println("data: " + localKey);
         boolean added = false;
         try
         {

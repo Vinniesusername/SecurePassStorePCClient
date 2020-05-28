@@ -3,6 +3,8 @@ package com.SecurePassStore.App;
 public class EncryptionHandler
 {
     private byte[] key = null;
+    private String localKey = "";
+
     public EncryptionHandler(byte[] k)
     {
         key = k;
