@@ -7,26 +7,26 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EncryptionHandler
 {
-    private char[] masterPassword = null;
+    private byte[] masterPasswordBytes = null;
     private String localKey = "";
     private int iterations = 10000;
-    private SecretKeySpec factoryKey;
+    private SecretKeySpec secretKeySpecKey;
     private static EncryptionHandler encryptionHandler;
     private  Cipher cipher;
 
 
-    private EncryptionHandler(char[] password, byte[] salt, int iterations)
+    private EncryptionHandler(char[] password)
     {
-        masterPassword = password;
-        factoryKey = getSercretKey(masterPassword, new byte[16], iterations);
+        masterPasswordBytes = String.valueOf(password).getBytes();
+        secretKeySpecKey = new SecretKeySpec(masterPasswordBytes, "AES");
         cipher = getCipher();
 
     }
 
-    public static EncryptionHandler getInstance(char[] password, byte[] salt, int iterations)
+    public static EncryptionHandler getInstance(char[] password)
     {
         if(encryptionHandler == null)
-            encryptionHandler = new EncryptionHandler(password, salt, iterations);
+            encryptionHandler = new EncryptionHandler(password);
         return encryptionHandler;
 
     }
@@ -48,32 +48,13 @@ public class EncryptionHandler
 
     }
 
-    public static SecretKeySpec getSercretKey(char[] masterPassword, byte[] salt, int iterations)
-    {
-        SecretKeyFactory factoryKey;
-        SecretKeySpec spec;
-        try
-        {
-            factoryKey = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            SecretKey keyGen = factoryKey.generateSecret(new PBEKeySpec(
-                    masterPassword, salt, iterations, 128));
-            spec = new SecretKeySpec(keyGen.getEncoded(), "AES");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-            spec = null;
-        }
 
-        return spec;
-    }
-
-    public byte[] encryptPassword(byte[] password, SecretKeySpec factoryKey)
+    public byte[] encryptPassword(byte[] password)
     {
         byte[] encrypted = null;
         try
         {
-            cipher.init(Cipher.ENCRYPT_MODE, factoryKey);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpecKey);
             encrypted = cipher.doFinal(password);
         }
         catch (Exception e)
@@ -86,9 +67,20 @@ public class EncryptionHandler
 
     public byte[] decryptPassword(byte[] password)
     {
+        byte[] decrypted = null;
+
+        try
+        {
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpecKey);
+            decrypted = cipher.doFinal(password);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
 
 
-        return null;
+        return decrypted;
     }
 
     public byte[] encryptPassword(byte[] password, String accKey)
