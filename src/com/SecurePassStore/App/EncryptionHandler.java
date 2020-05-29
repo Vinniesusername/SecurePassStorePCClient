@@ -2,37 +2,79 @@ package com.SecurePassStore.App;
 
 //TODO implement methods
 import javax.crypto.*;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class EncryptionHandler
 {
-    private byte[] key = null;
+    private char[] masterPassword = null;
     private String localKey = "";
-    private SecretKeySpec secretKeySpec;
+    private int iterations = 10000;
+    private SecretKeySpec factoryKey;
     private static EncryptionHandler encryptionHandler;
+    private  Cipher cipher;
 
-    private EncryptionHandler(byte[] k)
+
+    private EncryptionHandler(char[] password, byte[] salt, int iterations)
     {
-        key = k;
-        secretKeySpec = new SecretKeySpec(key, "AES" );
+        masterPassword = password;
+        factoryKey = getSercretKey(masterPassword, new byte[16], iterations);
+        cipher = getCipher();
+
     }
 
-    public static EncryptionHandler getInstance(byte[] key)
+    public static EncryptionHandler getInstance(char[] password, byte[] salt, int iterations)
     {
         if(encryptionHandler == null)
-            encryptionHandler = new EncryptionHandler(key);
+            encryptionHandler = new EncryptionHandler(password, salt, iterations);
         return encryptionHandler;
 
     }
 
-    public byte[] encryptPassword(byte[] password)
+    public static Cipher getCipher()
+    {
+        Cipher c;
+        try
+        {
+            c = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            c = null;
+        }
+
+        return c;
+
+    }
+
+    public static SecretKeySpec getSercretKey(char[] masterPassword, byte[] salt, int iterations)
+    {
+        SecretKeyFactory factoryKey;
+        SecretKeySpec spec;
+        try
+        {
+            factoryKey = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            SecretKey keyGen = factoryKey.generateSecret(new PBEKeySpec(
+                    masterPassword, salt, iterations, 128));
+            spec = new SecretKeySpec(keyGen.getEncoded(), "AES");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            spec = null;
+        }
+
+        return spec;
+    }
+
+    public byte[] encryptPassword(byte[] password, SecretKeySpec factoryKey)
     {
         byte[] encrypted = null;
         try
         {
-            Cipher c = Cipher.getInstance("AES");
-            c.init(Cipher.ENCRYPT_MODE, secretKeySpec);
-            encrypted = c.doFinal(password);
+            cipher.init(Cipher.ENCRYPT_MODE, factoryKey);
+            encrypted = cipher.doFinal(password);
         }
         catch (Exception e)
         {
