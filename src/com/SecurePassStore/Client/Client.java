@@ -114,8 +114,10 @@ public class Client
 
     void disposeCreateAccountADV()
     {
+        clientHandler.cAAdv.setCaller(null);
         clientHandler.cAAdv.hideKey(false);
         clientHandler.cAAdv.dispose();
+
 
     }
 

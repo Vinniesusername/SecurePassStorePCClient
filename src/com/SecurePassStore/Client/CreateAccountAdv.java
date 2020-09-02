@@ -74,6 +74,7 @@ public class CreateAccountAdv extends JFrame {
                 info[1] = String.valueOf(enableLocalKeyRadioButton.isSelected());
                 client.passInfo(info, caller);
                 client.actOnInfo(caller);
+                client.ClearPanel(rootPanel);
                 client.disposeCreateAccountADV();
 
 
