@@ -13,8 +13,6 @@ public class NewEntry extends JFrame
     private static NewEntry newEntry;
     private String generatedPassword;
 
-
-
     private JPanel rootpanel;
     private JLabel namelabel;
     private JLabel passwordLabel;
@@ -23,6 +21,10 @@ public class NewEntry extends JFrame
     private JTextField urlField;
     private JTextField nameField;
     private JButton addButton;
+    private JTextField typeField;
+    private JLabel typeLabel;
+    private JButton viewButton;
+    private boolean hidden = true;
 
     private NewEntry()
     {
@@ -36,6 +38,22 @@ public class NewEntry extends JFrame
             {
                 client.ShowCreateAccountADV(newEntry);
 
+            }
+        });
+        viewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                if(hidden)
+                {
+                    passwordField.setEchoChar((char) 0);
+                    hidden = false;
+                }
+                else
+                {
+                    passwordField.setEchoChar('*');
+                    hidden = true;
+                }
             }
         });
     }

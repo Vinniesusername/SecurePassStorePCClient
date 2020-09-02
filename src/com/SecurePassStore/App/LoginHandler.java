@@ -139,6 +139,4 @@ public class LoginHandler
             x = true;
         return x;
     }
-
-
 }

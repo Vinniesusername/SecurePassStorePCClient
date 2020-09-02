@@ -72,13 +72,13 @@ public class Client
         }
     }
 
-    public void showLogin()
+    void showLogin()
     {
         clientHandler.login.setVisible(true);
         clientHandler.login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public static void DisposeLogin()
+    void DisposeLogin()
     {
         clientHandler.login.dispose();
     }
@@ -107,7 +107,7 @@ public class Client
     }
 
 
-    public void showNewEntry()
+    void showNewEntry()
     {
         clientHandler.newEntry.setVisible(true);
     }
@@ -128,6 +128,7 @@ public class Client
 
     void showMainLanding(String username)
     {
+        clientHandler.DisposeLogin();
         clientHandler.mainLanding.setVisible(true);
         clientHandler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
