@@ -34,6 +34,7 @@ public class LogIn extends JFrame
                 char[] password = passwordField.getPassword();
                 if(checkUser(username, password) == 1)
                 {
+                    client.passInfo(password, null);
                     client.showMainLanding(username);
                 }
                 else if(checkUser(username, password) == 0)

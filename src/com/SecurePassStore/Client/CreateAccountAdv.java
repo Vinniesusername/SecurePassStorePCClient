@@ -70,7 +70,7 @@ public class CreateAccountAdv extends JFrame {
                 String[] info = new String[2];
                 info[0] = suggestedPasswordField.getText();
                 info[1] = String.valueOf(enableLocalKeyRadioButton.isSelected());
-                client.passInfo(info, 0);
+                client.passInfo(info, null);
                 client.actOnInfo(0);
                 client.disposeCreateAccountADV();
 

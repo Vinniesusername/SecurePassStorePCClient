@@ -8,8 +8,9 @@ public class Client
     private static  Client clientHandler;
     private LogIn login = new LogIn();
     private CreateAccout createAccout = CreateAccout.getInstance();
-    private MainLanding mainLanding = new MainLanding();
+    private MainLanding mainLanding = MainLanding.getInstance();
     private CreateAccountAdv cAAdv = new CreateAccountAdv();
+    private NewEntry newEntry = NewEntry.getInstance();
 
     private Client()
     {
@@ -23,16 +24,14 @@ public class Client
         return clientHandler;
     }
 
-    void passInfo(String[] info, int receiver)
+    void passInfo(String[] info, CreateAccout c)
     {
-        //TODO: change numbering when other passinfo options are implemented
-        switch (receiver)
-        {
-            case 0:
-                createAccout.getInfo(info);
-                break;
-        }
+        createAccout.getInfo(info);
+    }
 
+    void passInfo(char[] info, MainLanding m)
+    {
+        mainLanding.getInfo(info);
     }
 
     void actOnInfo(int frame)
@@ -41,6 +40,9 @@ public class Client
         {
             case 0:
                 createAccout.actOnInfo();
+                break;
+            case 1:
+                break;
 
         }
 
@@ -83,10 +85,14 @@ public class Client
 
     }
 
-    void disposeCreateAccountADV()
+    public void showNewEntry()
     {
+        clientHandler.newEntry.setVisible(true);
+    }
+
+    void disposeCreateAccountADV() {
         clientHandler.cAAdv.dispose();
-        ;
+
     }
 
     void DisposeCreate()

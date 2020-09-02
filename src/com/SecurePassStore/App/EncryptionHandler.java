@@ -4,22 +4,25 @@ package com.SecurePassStore.App;
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.spec.KeySpec;
 
 public class EncryptionHandler
 {
     private byte[] masterPasswordBytes = null;
     private String localKey = "";
     private int iterations = 10000;
-    private SecretKeySpec secretKeySpecKey;
+    private SecretKeySpec key;
     private static EncryptionHandler encryptionHandler;
     private  Cipher cipher;
+    byte[] salt = new byte[1];
+    Generator g = new Generator();
 
 
     private EncryptionHandler(char[] password)
     {
-        masterPasswordBytes = String.valueOf(password).getBytes();
-        secretKeySpecKey = new SecretKeySpec(masterPasswordBytes, "AES");
+        key = getKey(password);
         cipher = getCipher();
+
 
     }
 
@@ -31,6 +34,24 @@ public class EncryptionHandler
 
     }
 
+    public static SecretKeySpec getKey(char[] password)
+    {
+        byte[] key = null;
+        SecretKeySpec keySpec = null;
+        try
+        {
+            KeySpec k = new PBEKeySpec(password);
+            SecretKeyFactory sf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            key = sf.generateSecret(k).getEncoded();
+            keySpec = new SecretKeySpec(key, "AES");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return keySpec;
+        }
+        return keySpec;
+    }
     public static Cipher getCipher()
     {
         Cipher c;
@@ -54,7 +75,7 @@ public class EncryptionHandler
         byte[] encrypted = null;
         try
         {
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpecKey);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
             encrypted = cipher.doFinal(password);
         }
         catch (Exception e)
@@ -71,7 +92,7 @@ public class EncryptionHandler
 
         try
         {
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpecKey);
+            cipher.init(Cipher.DECRYPT_MODE, key);
             decrypted = cipher.doFinal(password);
         }
         catch (Exception e)
