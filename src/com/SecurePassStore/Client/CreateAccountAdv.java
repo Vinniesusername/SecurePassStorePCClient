@@ -21,9 +21,11 @@ public class CreateAccountAdv extends JFrame {
     private JRadioButton includeLowerCaseRadioButton;
     private JSlider charSlider;
     private JLabel slideLabel;
+    private JFrame caller;
     private static Client client = Client.getClientInstance();
 
-    public CreateAccountAdv() {
+    public CreateAccountAdv()
+    {
         add(rootPanel);
         setSize(850, 350);
         setLocationRelativeTo(null);
@@ -70,13 +72,23 @@ public class CreateAccountAdv extends JFrame {
                 String[] info = new String[2];
                 info[0] = suggestedPasswordField.getText();
                 info[1] = String.valueOf(enableLocalKeyRadioButton.isSelected());
-                client.passInfo(info, null);
-                client.actOnInfo(0);
+                client.passInfo(info, caller);
+                client.actOnInfo(caller);
                 client.disposeCreateAccountADV();
 
 
             }
         });
+    }
+
+    public void hideKey(boolean b)
+    {
+        enableLocalKeyRadioButton.setVisible(!b);
+    }
+
+    public void setCaller(JFrame c)
+    {
+        caller = c;
     }
 
 

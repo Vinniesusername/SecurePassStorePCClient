@@ -1,12 +1,18 @@
 package com.SecurePassStore.Client;
 
+import com.SecurePassStore.App.Generator;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NewEntry extends JFrame
 {
 
     private static Client client = Client.getClientInstance();
     private static NewEntry newEntry;
+    private String generatedPassword;
+
 
 
     private JPanel rootpanel;
@@ -24,6 +30,14 @@ public class NewEntry extends JFrame
         setSize(550, 500);
         setLocationRelativeTo(null);
 
+        generatePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                client.ShowCreateAccountADV(newEntry);
+
+            }
+        });
     }
 
 
@@ -34,5 +48,15 @@ public class NewEntry extends JFrame
             newEntry = new NewEntry();
         }
         return newEntry;
+    }
+
+    public void  getInfo(String[] info)
+    {
+        generatedPassword = info[0];
+    }
+
+    public void actOnInfo()
+    {
+        passwordField.setText(generatedPassword);
     }
 }

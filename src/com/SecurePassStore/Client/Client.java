@@ -24,29 +24,42 @@ public class Client
         return clientHandler;
     }
 
-    void passInfo(String[] info, CreateAccout c)
+    void passInfo(String[] info, JFrame frame)
     {
-        createAccout.getInfo(info);
-    }
-
-    void passInfo(char[] info, MainLanding m)
-    {
-        mainLanding.getInfo(info);
-    }
-
-    void actOnInfo(int frame)
-    {
-        switch(frame)
+        if( frame instanceof CreateAccout)
         {
-            case 0:
-                createAccout.actOnInfo();
-                break;
-            case 1:
-                break;
-
+            createAccout.getInfo(info);
+        }
+        else if( frame instanceof NewEntry)
+        {
+            newEntry.getInfo(info);
         }
 
     }
+
+    void passInfo(char[] info, JFrame frame)
+    {
+        if(frame instanceof MainLanding)
+        {
+            mainLanding.getInfo(info);
+        }
+    }
+
+
+    void actOnInfo(JFrame frame)
+    {
+        if(frame instanceof CreateAccout)
+        {
+                createAccout.actOnInfo();
+        }
+        else if(frame instanceof NewEntry)
+        {
+            newEntry.actOnInfo();
+        }
+
+    }
+
+
 
 
     public void startup()
@@ -77,20 +90,31 @@ public class Client
         clientHandler.createAccout.requestFocus();
     }
 
-    void ShowCreateAccountADV()
+    void ShowCreateAccountADV(CreateAccout caller)
     {
         clientHandler.cAAdv.setVisible(true);
         clientHandler.cAAdv.setAlwaysOnTop(true);
-
-
+        clientHandler.cAAdv.setCaller(caller);
     }
+
+    void ShowCreateAccountADV(NewEntry caller)
+    {
+
+        clientHandler.cAAdv.hideKey(true);
+        clientHandler.cAAdv.setVisible(true);
+        clientHandler.cAAdv.setAlwaysOnTop(true);
+        clientHandler.cAAdv.setCaller(caller);
+    }
+
 
     public void showNewEntry()
     {
         clientHandler.newEntry.setVisible(true);
     }
 
-    void disposeCreateAccountADV() {
+    void disposeCreateAccountADV()
+    {
+        clientHandler.cAAdv.hideKey(false);
         clientHandler.cAAdv.dispose();
 
     }
