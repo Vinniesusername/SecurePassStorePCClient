@@ -12,6 +12,7 @@ public class Client
     private CreateAccountAdv cAAdv = new CreateAccountAdv();
     private NewEntry newEntry = NewEntry.getInstance();
     private char[] masterPassword;
+    private String username = null;
 
 
     private Client()
@@ -144,6 +145,7 @@ public class Client
 
     void showMainLanding(String username)
     {
+        clientHandler.username = username;
         clientHandler.DisposeLogin();
         clientHandler.mainLanding.setVisible(true);
         clientHandler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

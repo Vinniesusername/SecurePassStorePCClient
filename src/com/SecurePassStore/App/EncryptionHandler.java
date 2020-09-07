@@ -107,6 +107,7 @@ public class EncryptionHandler
     {
         byte[] decrypted = null;
 
+
         try
         {
             cipher.init(Cipher.DECRYPT_MODE, key);
