@@ -17,13 +17,14 @@ public class LogIn extends JFrame
     private JButton newUserButton;
     private JButton loginButton;
     private static Client client = Client.getClientInstance();
+    private static LogIn logInHandler;
 
-    LogIn()
+    private LogIn()
     {
         add(rootPanel);
         setSize(350, 150);
         setLocationRelativeTo(null);
-        setTitle("Secure Password Store 0.1");
+        setTitle("Secure Password Store 0.2");
         setResizable(false);
 
         logInButton.addActionListener(new ActionListener() {
@@ -34,7 +35,7 @@ public class LogIn extends JFrame
                 char[] password = passwordField.getPassword();
                 if(checkUser(username, password) == 1)
                 {
-                    client.passInfo(password, null);
+                    client.passInfo(password, logInHandler);
                     client.showMainLanding(username);
                 }
                 else if(checkUser(username, password) == 0)
@@ -56,6 +57,15 @@ public class LogIn extends JFrame
                client.showCreateAccount();
             }
         });
+    }
+
+    public static LogIn getInstance()
+    {
+        if (logInHandler == null)
+        {
+            logInHandler = new LogIn();
+        }
+        return logInHandler;
     }
 
 }

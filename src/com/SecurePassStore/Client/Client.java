@@ -6,11 +6,13 @@ import java.awt.*;
 public class Client
 {
     private static  Client clientHandler;
-    private LogIn login = new LogIn();
+    private LogIn login = LogIn.getInstance();
     private CreateAccout createAccout = CreateAccout.getInstance();
     private MainLanding mainLanding = MainLanding.getInstance();
     private CreateAccountAdv cAAdv = new CreateAccountAdv();
     private NewEntry newEntry = NewEntry.getInstance();
+    private char[] masterPassword;
+
 
     private Client()
     {
@@ -43,6 +45,10 @@ public class Client
         {
             mainLanding.getInfo(info);
         }
+        else if(frame instanceof  LogIn)
+        {
+            clientHandler.masterPassword = info;
+        }
     }
 
 
@@ -57,6 +63,16 @@ public class Client
             newEntry.actOnInfo();
         }
 
+    }
+
+    public char[] getMasterPassword()
+    {
+        if(clientHandler.masterPassword == null)
+        {
+            //TODO: handle this case. throw exception?
+            System.out.println("password not there");
+        }
+        return clientHandler.masterPassword;
     }
 
 

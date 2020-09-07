@@ -19,7 +19,7 @@ public class LoginHandler
         }
         else
             {
-            byte[] salt = getSalt();
+            byte[] salt = makeSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
             added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt), localKey);
             }
@@ -47,7 +47,7 @@ public class LoginHandler
         return matched;
     }
 
-    private static byte[] getSalt()
+    public static byte[] makeSalt()
     {
         SecureRandom saltGen = new SecureRandom();
         byte[] salt = new byte[32];

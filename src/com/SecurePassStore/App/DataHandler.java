@@ -1,7 +1,7 @@
 package com.SecurePassStore.App;
 import java.sql.*;
 
-class DataHandler
+public class DataHandler
 {
 
     public Connection db;
@@ -131,6 +131,30 @@ class DataHandler
              System.out.println(e + " salt") ;
          }
          return salt;
+     }
+
+     public boolean addNewEntry(String user, String type, String encryptedPassword, String salt,  String url)
+     {
+         boolean added = false;
+         try
+         {
+             final String sqlInsert = "INSERT INTO ENTRYS (USERNAME, TYPE, PASSWORD, SALT,  URL) VALUES (?,?,?,?,?)";
+             PreparedStatement state = handler.db.prepareStatement(sqlInsert);
+             state.setString(1, user);
+             state.setString(2, type);
+             state.setString(3, encryptedPassword);
+             state.setString(4, salt);
+             state.setString(5, url);
+             state.executeUpdate();
+             added = true;
+
+         }
+         catch (Exception e)
+         {
+             System.out.println(e);
+         }
+
+         return added;
      }
 
 

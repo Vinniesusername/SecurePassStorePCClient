@@ -4,43 +4,57 @@ package com.SecurePassStore.App;
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
 public class EncryptionHandler
 {
     private byte[] masterPasswordBytes = null;
     private String localKey = "";
-    private int iterations = 10000;
+    private static int iterations = 10000;
     private SecretKeySpec key;
     private static EncryptionHandler encryptionHandler;
     private  Cipher cipher;
-    byte[] salt = new byte[1];
+    private static LoginHandler lh = new LoginHandler();
     Generator g = new Generator();
+    private static char[] masterPassword = null;
 
-
-    private EncryptionHandler(char[] password)
+    public void startUp(char[] mp)
     {
-        key = getKey(password);
-        cipher = getCipher();
-
+        masterPassword = mp;
 
     }
 
-    public static EncryptionHandler getInstance(char[] password)
+
+    private EncryptionHandler()
+    {
+        cipher = getCipher();
+
+    }
+
+    private static byte[] makeSalt()
+    {
+        SecureRandom saltGen = new SecureRandom();
+        byte[] salt = new byte[32];
+        saltGen.nextBytes(salt);
+        return salt;
+    }
+
+    public static EncryptionHandler getInstance()
     {
         if(encryptionHandler == null)
-            encryptionHandler = new EncryptionHandler(password);
+            encryptionHandler = new EncryptionHandler();
         return encryptionHandler;
 
     }
 
-    public static SecretKeySpec getKey(char[] password)
+    public static SecretKeySpec getKey(byte[] salt)
     {
-        byte[] key = null;
+        byte[] key = String.valueOf(masterPassword).getBytes();
         SecretKeySpec keySpec = null;
         try
         {
-            KeySpec k = new PBEKeySpec(password);
+            KeySpec k = new PBEKeySpec(masterPassword, salt, iterations, 128);
             SecretKeyFactory sf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             key = sf.generateSecret(k).getEncoded();
             keySpec = new SecretKeySpec(key, "AES");
@@ -48,7 +62,7 @@ public class EncryptionHandler
         catch(Exception e)
         {
             System.out.println(e);
-            return keySpec;
+
         }
         return keySpec;
     }
@@ -70,13 +84,16 @@ public class EncryptionHandler
     }
 
 
-    public byte[] encryptPassword(byte[] password)
+    public byte[][] encryptPassword(byte[] password)
     {
-        byte[] encrypted = null;
+        byte[][] encrypted = new byte[2][1];
+        byte[] salt = makeSalt();
+        SecretKeySpec key = getKey(salt);
         try
         {
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            encrypted = cipher.doFinal(password);
+            encrypted[0] = cipher.doFinal(password);
+            encrypted[1] = salt;
         }
         catch (Exception e)
         {
