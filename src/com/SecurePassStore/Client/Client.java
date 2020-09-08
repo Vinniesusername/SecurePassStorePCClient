@@ -76,6 +76,11 @@ public class Client
         return clientHandler.masterPassword;
     }
 
+    public String getUsername()
+    {
+        return clientHandler.username;
+    }
+
 
 
 
@@ -129,6 +134,12 @@ public class Client
         clientHandler.newEntry.setVisible(true);
     }
 
+    void disposeNewEntry()
+    {
+
+        clientHandler.newEntry.dispose();
+    }
+
     void disposeCreateAccountADV()
     {
         clientHandler.cAAdv.setCaller(null);
@@ -145,7 +156,7 @@ public class Client
 
     void showMainLanding(String username)
     {
-        clientHandler.username = username;
+        clientHandler.username = username.toLowerCase();
         clientHandler.DisposeLogin();
         clientHandler.mainLanding.setVisible(true);
         clientHandler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -207,6 +218,14 @@ public class Client
         else if(screen == 2)
         {
             root = clientHandler.cAAdv;
+        }
+        else if(screen == 3)
+        {
+            root = clientHandler.mainLanding;
+        }
+        else if (screen == 4)
+        {
+            root = clientHandler.newEntry;
         }
         else
         {

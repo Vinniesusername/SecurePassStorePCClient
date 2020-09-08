@@ -67,10 +67,16 @@ public class NewEntry extends JFrame
                 eh.startUp(getMasterPassword());
                 byte[][] encrypted;
                 encrypted = eh.encryptPassword(String.valueOf(passwordField.getPassword()).getBytes());
-                if(!dh.addNewEntry(nameField.getText(), typeField.getText(), byteArrayToHex(encrypted[0]),
+                if(!dh.addNewEntry(client.getUsername(), nameField.getText(), typeField.getText(), byteArrayToHex(encrypted[0]),
                         byteArrayToHex(encrypted[1]), urlField.getText()))
                 {
                     System.out.println("error adding entry");
+                }
+                else
+                {
+                    client.showDialog(3, "entry added", 3);
+                    client.ClearPanel(rootpanel);
+                    client.disposeNewEntry();
                 }
 
 

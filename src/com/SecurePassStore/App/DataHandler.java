@@ -133,18 +133,19 @@ public class DataHandler
          return salt;
      }
 
-     public boolean addNewEntry(String user, String type, String encryptedPassword, String salt,  String url)
+     public boolean addNewEntry(String userId, String username, String type, String encryptedPassword, String salt,  String url)
      {
          boolean added = false;
          try
          {
-             final String sqlInsert = "INSERT INTO ENTRYS (USERNAME, TYPE, PASSWORD, SALT,  URL) VALUES (?,?,?,?,?)";
+             final String sqlInsert = "INSERT INTO ENTRYS (USERID, USERNAME, TYPE, PASSWORD, SALT,  URL) VALUES (?,?,?,?,?,?)";
              PreparedStatement state = handler.db.prepareStatement(sqlInsert);
-             state.setString(1, user);
-             state.setString(2, type);
-             state.setString(3, encryptedPassword);
-             state.setString(4, salt);
-             state.setString(5, url);
+             state.setString(1, userId);
+             state.setString(2, username);
+             state.setString(3, type);
+             state.setString(4, encryptedPassword);
+             state.setString(5, salt);
+             state.setString(6, url);
              state.executeUpdate();
              added = true;
 
