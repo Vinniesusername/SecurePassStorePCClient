@@ -3,6 +3,7 @@ package com.SecurePassStore.Client;
 import com.SecurePassStore.App.DataHandler;
 import com.SecurePassStore.App.EncryptionHandler;
 import com.SecurePassStore.App.Generator;
+import com.SecurePassStore.App.Tools;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ public class NewEntry extends JFrame
     private String generatedPassword;
     private static EncryptionHandler eh = EncryptionHandler.getInstance();
     private static DataHandler dh = DataHandler.getInstance();
+    private Tools tool = new Tools();
 
     private JPanel rootpanel;
     private JLabel namelabel;
@@ -67,14 +69,14 @@ public class NewEntry extends JFrame
                 eh.startUp(getMasterPassword());
                 byte[][] encrypted;
                 encrypted = eh.encryptPassword(String.valueOf(passwordField.getPassword()).getBytes());
-                if(!dh.addNewEntry(client.getUsername(), nameField.getText(), typeField.getText(), byteArrayToHex(encrypted[0]),
-                        byteArrayToHex(encrypted[1]), urlField.getText()))
+                if(!dh.addNewEntry(client.getUsername(), nameField.getText(), typeField.getText(), tool.byteArrayToHex(encrypted[0]),
+                        tool.byteArrayToHex(encrypted[1]), urlField.getText()))
                 {
                     System.out.println("error adding entry");
                 }
                 else
                 {
-                    client.showDialog(3, "entry added", 3);
+                    client.showDialog(newEntry, "entry added", 3);
                     client.ClearPanel(rootpanel);
                     client.disposeNewEntry();
                 }
@@ -94,15 +96,6 @@ public class NewEntry extends JFrame
         return newEntry;
     }
 
-    private static String byteArrayToHex(byte[] byteArray)
-    {
-        StringBuilder password = new StringBuilder();
-        for(byte b: byteArray)
-        {
-            password.append(String.format("%02x", b));
-        }
-        return password.toString();
-    }
 
     public void  getInfo(String[] info)
     {

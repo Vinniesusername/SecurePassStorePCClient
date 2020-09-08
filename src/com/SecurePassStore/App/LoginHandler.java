@@ -2,13 +2,14 @@ package com.SecurePassStore.App;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+
 
 
 public class LoginHandler
 {
 
     private static DataHandler dataHandler = DataHandler.getInstance();
+    private static Tools tool = new Tools();
 
     public static boolean addUser(String userName, char[] password, boolean localKey)
     {
@@ -19,9 +20,9 @@ public class LoginHandler
         }
         else
             {
-            byte[] salt = makeSalt();
+            byte[] salt = tool.makeSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
-            added = dataHandler.addUser(userName, byteArrayToHex(passwordHash), byteArrayToHex(salt), localKey);
+            added = dataHandler.addUser(userName, tool.byteArrayToHex(passwordHash), tool.byteArrayToHex(salt), localKey);
             }
         return added;
     }
@@ -30,8 +31,8 @@ public class LoginHandler
     {
         int matched = 1;
         if(dataHandler.contains(name)) {
-            byte[] passwordBytes = getPasswordHash(password, hexStringToByteArray(dataHandler.getSalt(name)));
-            byte[] passwordRecord = hexStringToByteArray(dataHandler.getPassword(name));
+            byte[] passwordBytes = getPasswordHash(password, tool.hexStringToByteArray(dataHandler.getSalt(name)));
+            byte[] passwordRecord = tool.hexStringToByteArray(dataHandler.getPassword(name));
 
             for (int i = 0; i < passwordBytes.length; i++)
             {
@@ -47,13 +48,6 @@ public class LoginHandler
         return matched;
     }
 
-    public static byte[] makeSalt()
-    {
-        SecureRandom saltGen = new SecureRandom();
-        byte[] salt = new byte[32];
-        saltGen.nextBytes(salt);
-        return salt;
-    }
 
     private static byte[] getPasswordHash(char[] password, byte[] salt)
     {
@@ -71,34 +65,6 @@ public class LoginHandler
             System.exit(1);
         }
         return hashedPassword;
-    }
-
-    private static String byteArrayToHex(byte[] byteArray)
-    {
-        StringBuilder password = new StringBuilder();
-        for(byte b: byteArray)
-        {
-            password.append(String.format("%02x", b));
-        }
-        return password.toString();
-    }
-
-    private static byte[] hexStringToByteArray(String hexString)
-    {
-        int size = hexString.length();
-        if(size == 0)
-        {
-           System.exit(-1);
-        }
-        byte[] byteArray = new byte[size /2];
-        for(int i = 0; i < size; i+= 2)
-        {
-            byteArray[i/2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) +
-                    Character.digit(hexString.charAt(i+1), 16));
-
-        }
-
-        return byteArray;
     }
 
     public static boolean validPasswordCheck(char[] password)
@@ -119,7 +85,7 @@ public class LoginHandler
                 upper = true;
             else if(Character.isLowerCase(passwordString.charAt(i)))
                 lower = true;
-            else if(isSymbol(passwordString.charAt(i)))
+            else if(tool.isSymbol(passwordString.charAt(i)))
                 symbols = true;
             else
                 return false;
@@ -130,13 +96,4 @@ public class LoginHandler
         return valid;
     }
 
-
-    private static boolean isSymbol(char c)
-    {
-        boolean x = false;
-        String symbols = "!@#$%^&*";
-        if(symbols.indexOf(c) > -1)
-            x = true;
-        return x;
-    }
 }

@@ -49,7 +49,7 @@ public class CreateAccountAdv extends JFrame {
                 }
                 else
                 {
-                    client.showDialog(2, "must select at least one type of character", 2);
+                    client.showDialog(new CreateAccountAdv(), "must select at least one type of character", 2);
                 }
 
 

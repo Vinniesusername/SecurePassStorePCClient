@@ -40,11 +40,11 @@ public class LogIn extends JFrame
                 }
                 else if(checkUser(username, password) == 0)
                 {
-                    client.showDialog(0, "Log In Failed, Wrong password", 2);
+                    client.showDialog(logInHandler, "Log In Failed, Wrong password", 2);
                 }
                 else
                 {
-                    client.showDialog(0, "user name does not exist. Create a new account", 2);
+                    client.showDialog(logInHandler, "user name does not exist. Create a new account", 2);
                 }
                 client.ClearPanel(rootPanel);
             }

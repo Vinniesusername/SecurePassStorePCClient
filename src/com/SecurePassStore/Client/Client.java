@@ -87,7 +87,7 @@ public class Client
     public void startup()
     {
         showLogin();
-        if(showDialog(0,"This is only intended to be used for educational purposes. do not attempt to use this program " +
+        if(showDialog(clientHandler.login,"This is only intended to be used for educational purposes. do not attempt to use this program " +
                 "to handle your personal accounts. do you agree?", 1) != 0)
         {
             System.exit(0);
@@ -203,27 +203,27 @@ public class Client
         }
     }
 
-    int showDialog(int screen, String message, int type)
+    int showDialog(JFrame screen, String message, int type)
     {
         JFrame root;
         int status = -1;
-        if (screen == 0)
+        if (screen instanceof LogIn)
         {
            root = clientHandler.login;
         }
-        else if(screen == 1)
+        else if(screen instanceof CreateAccout)
         {
             root = clientHandler.createAccout;
         }
-        else if(screen == 2)
+        else if(screen instanceof CreateAccountAdv)
         {
             root = clientHandler.cAAdv;
         }
-        else if(screen == 3)
+        else if(screen instanceof MainLanding)
         {
             root = clientHandler.mainLanding;
         }
-        else if (screen == 4)
+        else if (screen instanceof NewEntry)
         {
             root = clientHandler.newEntry;
         }

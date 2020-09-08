@@ -4,7 +4,6 @@ package com.SecurePassStore.App;
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
 public class EncryptionHandler
@@ -18,6 +17,7 @@ public class EncryptionHandler
     private static LoginHandler lh = new LoginHandler();
     Generator g = new Generator();
     private static char[] masterPassword = null;
+    private static Tools tool = new Tools();
 
     public void startUp(char[] mp)
     {
@@ -25,19 +25,10 @@ public class EncryptionHandler
 
     }
 
-
     private EncryptionHandler()
     {
         cipher = getCipher();
 
-    }
-
-    private static byte[] makeSalt()
-    {
-        SecureRandom saltGen = new SecureRandom();
-        byte[] salt = new byte[32];
-        saltGen.nextBytes(salt);
-        return salt;
     }
 
     public static EncryptionHandler getInstance()
@@ -80,14 +71,12 @@ public class EncryptionHandler
         }
 
         return c;
-
     }
-
 
     public byte[][] encryptPassword(byte[] password)
     {
         byte[][] encrypted = new byte[2][1];
-        byte[] salt = makeSalt();
+        byte[] salt = tool.makeSalt();
         SecretKeySpec key = getKey(salt);
         try
         {
@@ -119,7 +108,6 @@ public class EncryptionHandler
             System.out.println(e);
         }
 
-
         return decrypted;
     }
 
@@ -133,8 +121,4 @@ public class EncryptionHandler
 
         return null;
     }
-
-
-
-
 }

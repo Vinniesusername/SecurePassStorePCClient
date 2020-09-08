@@ -46,14 +46,14 @@ public class CreateAccout extends JFrame
                 {
                     if (passwordField1.getPassword().length <= 8)
                     {
-                        client.showDialog(1,"Password must be more than 8 characters long", 2);
+                        client.showDialog(createhandler,"Password must be more than 8 characters long", 2);
                     } else if(emailField.getText().length() < 6)
                     {
-                        client.showDialog(1, "User name must be at least 6 letters", 2);
+                        client.showDialog(createhandler, "User name must be at least 6 letters", 2);
                     }
                     else if(!validPasswordCheck(passwordField1.getPassword()))
                     {
-                        client.showDialog(1, "password must contain at least one upper case, lower case" +
+                        client.showDialog(createhandler, "password must contain at least one upper case, lower case" +
                                 ", number and symbol", 2);
                     }
                     else
@@ -62,19 +62,19 @@ public class CreateAccout extends JFrame
                         char[] password = passwordField1.getPassword();
                         if (addUser(email, password, localKey))
                         {
-                            client.showDialog(1, "Account Created!", 3);
+                            client.showDialog(createhandler, "Account Created!", 3);
                             client.ClearPanel(rootPanel);
                             client.DisposeCreate();
                         }
                         else
                             {
-                            client.showDialog(1,"User Already Registered", 2);
+                            client.showDialog(createhandler,"User Already Registered", 2);
                         }
                         }
                 }
                 else
                 {
-                    client.showDialog(1,"Passwords do not match", 2);
+                    client.showDialog(createhandler,"Passwords do not match", 2);
                 }
             }
         }

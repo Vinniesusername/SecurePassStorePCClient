@@ -1,5 +1,4 @@
 package com.SecurePassStore.App;
-import java.security.spec.ECField;
 import java.sql.*;
 
 public class DataHandler
@@ -41,7 +40,6 @@ public class DataHandler
         boolean added = false;
         try
         {
-
             final String sqlInsert = "INSERT INTO USERS (USERNAME, PASSWORD, SALT, LOCALKEY) VALUES (?,?,?,?)";
             PreparedStatement state = handler.db.prepareStatement(sqlInsert);
             state.setString(1, user);
@@ -81,7 +79,6 @@ public class DataHandler
         {
             System.out.println(e + " password");
         }
-
 
         return hashedPassword;
     }
@@ -181,10 +178,7 @@ public class DataHandler
              System.out.println(e);
          }
          return password;
-
-
      }
-
 
      public void closeQuite()
      {
