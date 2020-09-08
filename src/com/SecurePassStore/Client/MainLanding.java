@@ -2,12 +2,12 @@ package com.SecurePassStore.Client;
 
 import com.SecurePassStore.App.DataHandler;
 import com.SecurePassStore.App.EncryptionHandler;
+import com.SecurePassStore.App.Tools;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+
 
 public class MainLanding extends JFrame
 {
@@ -16,7 +16,9 @@ public class MainLanding extends JFrame
     private static MainLanding mainLanding;
     private static DataHandler dh = DataHandler.getInstance();
     private static EncryptionHandler eh = EncryptionHandler.getInstance();
-    private char[] masterPassword;
+    private static Tools tool;
+    char[] masterPassword;
+
 
     private JPanel rootPanel;
     private JButton addLogIn;
@@ -42,22 +44,19 @@ public class MainLanding extends JFrame
             public void actionPerformed(ActionEvent actionEvent) {
                 eh.startUp(client.getMasterPassword());
                 String[] results = new String[2];
-                masterPassword = client.getMasterPassword();
                 String username = client.getUsername();
                 results = dh.getEntry("youtube account", client.getUsername());
-                //String password = Arrays.toString(eh.decryptPassword(hexStringToByteArray(results[0]), hexStringToByteArray(results[1])));
                 String password = null;
                 try
                 {
-                    password = new String(eh.decryptPassword(hexStringToByteArray(results[0]), hexStringToByteArray(results[1])), "UTF-8");
+                    password = new String(eh.decryptPassword(tool.hexStringToByteArray(results[0]),
+                            tool.hexStringToByteArray(results[1])), "UTF-8");
 
                 } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
                 testField.setText(String.valueOf(password));
-
-
             }
         });
     }
@@ -75,24 +74,5 @@ public class MainLanding extends JFrame
             mainLanding = new MainLanding();
         return mainLanding;
     }
-
-    private static byte[] hexStringToByteArray(String hexString)
-    {
-        int size = hexString.length();
-        if(size == 0)
-        {
-            System.exit(-1);
-        }
-        byte[] byteArray = new byte[size /2];
-        for(int i = 0; i < size; i+= 2)
-        {
-            byteArray[i/2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) +
-                    Character.digit(hexString.charAt(i+1), 16));
-
-        }
-
-        return byteArray;
-    }
-
 
 }
