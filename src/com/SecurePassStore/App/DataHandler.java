@@ -24,11 +24,10 @@ public class DataHandler
         try
         {
             con = DriverManager.getConnection("jdbc:mysql://localhost/sps", user, password);
-            System.out.println("connected to db");
         }
         catch (Exception e)
         {
-            System.out.println(e + "connect to db");
+            e.printStackTrace();
             System.exit(-1);
         }
 
@@ -51,7 +50,7 @@ public class DataHandler
         }
         catch (Exception e)
         {
-            System.out.println(e + "|| add user");
+            e.printStackTrace();
         }
         finally
         {
@@ -77,7 +76,7 @@ public class DataHandler
        }
        catch(Exception e)
         {
-            System.out.println(e + " password");
+            e.printStackTrace();
         }
 
         return hashedPassword;
@@ -106,7 +105,7 @@ public class DataHandler
          }
          catch (Exception e)
          {
-             System.out.println(e + "||| contains");
+             e.printStackTrace();
          }
          return contains;
      }
@@ -126,7 +125,7 @@ public class DataHandler
          }
          catch (Exception e)
          {
-             System.out.println(e + " salt") ;
+            e.printStackTrace();
          }
          return salt;
      }
@@ -150,7 +149,7 @@ public class DataHandler
          }
          catch (Exception e)
          {
-             System.out.println(e);
+             e.printStackTrace();
          }
 
          return added;
@@ -169,13 +168,10 @@ public class DataHandler
              rs.next();
              password[0] = rs.getString(1);
              password[1] = rs.getString(2);
-             System.out.println("sql worked");
-
-
          }
          catch(Exception e)
          {
-             System.out.println(e);
+             e.printStackTrace();
          }
          return password;
      }
@@ -188,7 +184,7 @@ public class DataHandler
          }
          catch (Exception e)
          {
-             System.out.println(e + " close");
+             e.printStackTrace();
          }
      }
 
