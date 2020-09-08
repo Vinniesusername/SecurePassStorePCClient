@@ -1,4 +1,5 @@
 package com.SecurePassStore.App;
+import java.security.spec.ECField;
 import java.sql.*;
 
 public class DataHandler
@@ -156,6 +157,32 @@ public class DataHandler
          }
 
          return added;
+     }
+
+     public String[] getEntry(String type, String username)
+     {
+         String[] password = new String[2];
+
+         try {
+             final String sqlInsert = "SELECT password, salt FROM ENTRYS WHERE TYPE = ? AND USERID = ?";
+             PreparedStatement state = handler.db.prepareStatement(sqlInsert);
+             state.setString(1, type);
+             state.setString(2, username);
+             ResultSet rs = state.executeQuery();
+             rs.next();
+             password[0] = rs.getString(1);
+             password[1] = rs.getString(2);
+             System.out.println("sql worked");
+
+
+         }
+         catch(Exception e)
+         {
+             System.out.println(e);
+         }
+         return password;
+
+
      }
 
 

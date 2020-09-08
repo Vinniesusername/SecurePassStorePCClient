@@ -50,7 +50,7 @@ public class EncryptionHandler
 
     public static SecretKeySpec getKey(byte[] salt)
     {
-        byte[] key = String.valueOf(masterPassword).getBytes();
+        byte[] key;
         SecretKeySpec keySpec = null;
         try
         {
@@ -103,10 +103,11 @@ public class EncryptionHandler
         return encrypted;
     }
 
-    public byte[] decryptPassword(byte[] password)
+    public byte[] decryptPassword(byte[] password, byte[] salt)
     {
         byte[] decrypted = null;
 
+        SecretKeySpec key = getKey(salt);
 
         try
         {
@@ -132,6 +133,8 @@ public class EncryptionHandler
 
         return null;
     }
+
+
 
 
 }
