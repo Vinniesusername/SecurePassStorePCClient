@@ -17,7 +17,7 @@ public class LogIn extends JFrame
     private JButton newUserButton;
     private JButton loginButton;
     private static final Gui guiHandler = Gui.getClientInstance();
-    private static LogIn logInHandler;
+    private static LogIn logInHandler;  //re name this to avoid confusion
 
     private LogIn()
     {
