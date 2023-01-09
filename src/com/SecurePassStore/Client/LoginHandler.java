@@ -1,7 +1,10 @@
 package com.SecurePassStore.Client;
 
-import java.security.MessageDigest;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 
 public class LoginHandler
@@ -50,15 +53,18 @@ public class LoginHandler
 
     private static byte[] getPasswordHash(char[] password, byte[] salt)
     {
-        //TODO: update hash algorithm to something more secure before opening repo
+        int iterations = 10000; //TODO: may need to be adjusted before it's secure. look into it later
+        int keyLength = 512;
         byte[] hashedPassword = null;
-        byte[] passwordBytes = String.valueOf(password).getBytes();
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.reset();
-            md.update(salt);
-            hashedPassword = md.digest(passwordBytes); //get hashed bytes
-        } catch (NoSuchAlgorithmException e)
+
+        try
+        {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
+            PBEKeySpec spec = new PBEKeySpec( password, salt, iterations, keyLength );
+            SecretKey key = skf.generateSecret(spec);
+            hashedPassword = key.getEncoded( );
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
         {
 
             System.exit(1);
