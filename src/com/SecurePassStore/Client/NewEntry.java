@@ -1,10 +1,5 @@
 package com.SecurePassStore.Client;
 
-import com.SecurePassStore.App.DataHandler;
-import com.SecurePassStore.App.EncryptionHandler;
-import com.SecurePassStore.App.Generator;
-import com.SecurePassStore.App.Tools;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +7,13 @@ import java.awt.event.ActionListener;
 public class NewEntry extends JFrame
 {
 
-    private static Client client = Client.getClientInstance();
+    private static final Gui guiHandler = Gui.getClientInstance();
     private static NewEntry newEntry;
     private String generatedPassword;
-    private static EncryptionHandler eh = EncryptionHandler.getInstance();
-    private static DataHandler dh = DataHandler.getInstance();
-    private Tools tool = new Tools();
+    private static final EncryptionHandler eh = EncryptionHandler.getInstance();
+    private static final Client client = Client.getInstance();
+    private final Tools tool = new Tools();
+
 
     private JPanel rootpanel;
     private JLabel namelabel;
@@ -42,7 +38,7 @@ public class NewEntry extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                client.ShowCreateAccountADV(newEntry);
+                guiHandler.ShowCreateAccountADV(newEntry);
 
             }
         });
@@ -69,16 +65,16 @@ public class NewEntry extends JFrame
                 eh.startUp(getMasterPassword());
                 byte[][] encrypted;
                 encrypted = eh.encryptPassword(String.valueOf(passwordField.getPassword()).getBytes());
-                if(!dh.addNewEntry(client.getUsername(), nameField.getText(), typeField.getText(), tool.byteArrayToHex(encrypted[0]),
+                if(!client.addNewEntry(guiHandler.getUsername(), nameField.getText(), typeField.getText(), tool.byteArrayToHex(encrypted[0]),
                         tool.byteArrayToHex(encrypted[1]), urlField.getText()))
                 {
                     System.out.println("error adding entry");
                 }
                 else
                 {
-                    client.showDialog(newEntry, "entry added", 3);
-                    client.ClearPanel(rootpanel);
-                    client.disposeNewEntry();
+                    guiHandler.showDialog(newEntry, "entry added", 3);
+                    guiHandler.ClearPanel(rootpanel);
+                    guiHandler.disposeNewEntry();
                 }
 
 
@@ -109,7 +105,7 @@ public class NewEntry extends JFrame
 
     private char[] getMasterPassword()
     {
-        return client.getMasterPassword();
+        return guiHandler.getMasterPassword();
     }
 
 }

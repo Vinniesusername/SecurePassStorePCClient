@@ -1,9 +1,5 @@
 package com.SecurePassStore.Client;
 
-import com.SecurePassStore.App.DataHandler;
-import com.SecurePassStore.App.EncryptionHandler;
-import com.SecurePassStore.App.Tools;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +8,10 @@ import java.awt.event.ActionListener;
 public class MainLanding extends JFrame
 {
 
-    private static Client client = Client.getClientInstance();
+    private static final Gui guiHandler = Gui.getClientInstance();
     private static MainLanding mainLanding;
-    private static DataHandler dh = DataHandler.getInstance();
-    private static EncryptionHandler eh = EncryptionHandler.getInstance();
+    private static final Client client = Client.getInstance();
+    private static final EncryptionHandler eh = EncryptionHandler.getInstance();
     private static Tools tool;
     char[] masterPassword;
 
@@ -35,17 +31,17 @@ public class MainLanding extends JFrame
         addLogIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                client.showNewEntry();
+                guiHandler.showNewEntry();
 
             }
         });
         getEntryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                eh.startUp(client.getMasterPassword());
+                eh.startUp(guiHandler.getMasterPassword());
                 String[] results = new String[2];
-                String username = client.getUsername();
-                results = dh.getEntry("youtube account", client.getUsername());
+                String username = guiHandler.getUsername();
+                results = client.getEntry("youtube account", guiHandler.getUsername());
                 String password = null;
                 try
                 {

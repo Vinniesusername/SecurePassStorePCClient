@@ -1,20 +1,19 @@
-package com.SecurePassStore.App;
+package com.SecurePassStore.Client;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-
 public class LoginHandler
 {
 
-    private static DataHandler dataHandler = DataHandler.getInstance();
+    private static final Client client = Client.getInstance();
     private static Tools tool = new Tools();
 
     public static boolean addUser(String userName, char[] password, boolean localKey)
     {
         boolean added = false;
-        if (dataHandler.contains(userName))
+        if (client.contains(userName))
         {
             return added;
         }
@@ -22,7 +21,7 @@ public class LoginHandler
             {
             byte[] salt = tool.makeSalt();
             byte[] passwordHash = getPasswordHash(password, salt);
-            added = dataHandler.addUser(userName, tool.byteArrayToHex(passwordHash), tool.byteArrayToHex(salt), localKey);
+            added = client.addUser(userName, tool.byteArrayToHex(passwordHash), tool.byteArrayToHex(salt), localKey);
             }
         return added;
     }
@@ -30,9 +29,9 @@ public class LoginHandler
     public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesnt exist
     {
         int matched = 1;
-        if(dataHandler.contains(name)) {
-            byte[] passwordBytes = getPasswordHash(password, tool.hexStringToByteArray(dataHandler.getSalt(name)));
-            byte[] passwordRecord = tool.hexStringToByteArray(dataHandler.getPassword(name));
+        if(client.contains(name)) {
+            byte[] passwordBytes = getPasswordHash(password, tool.hexStringToByteArray(client.getSalt(name)));
+            byte[] passwordRecord = tool.hexStringToByteArray(client.getPassword(name));
 
             for (int i = 0; i < passwordBytes.length; i++)
             {

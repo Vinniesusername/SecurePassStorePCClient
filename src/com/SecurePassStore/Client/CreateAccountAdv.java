@@ -1,6 +1,5 @@
 package com.SecurePassStore.Client;
 
-import com.SecurePassStore.App.Generator;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -22,7 +21,7 @@ public class CreateAccountAdv extends JFrame {
     private JSlider charSlider;
     private JLabel slideLabel;
     private JFrame caller;
-    private static Client client = Client.getClientInstance();
+    private static final Gui guiHandler = Gui.getClientInstance();
 
     public CreateAccountAdv()
     {
@@ -49,7 +48,7 @@ public class CreateAccountAdv extends JFrame {
                 }
                 else
                 {
-                    client.showDialog(new CreateAccountAdv(), "must select at least one type of character", 2);
+                    guiHandler.showDialog(new CreateAccountAdv(), "must select at least one type of character", 2);
                 }
 
 
@@ -72,10 +71,10 @@ public class CreateAccountAdv extends JFrame {
                 String[] info = new String[2];
                 info[0] = suggestedPasswordField.getText();
                 info[1] = String.valueOf(enableLocalKeyRadioButton.isSelected());
-                client.passInfo(info, caller);
-                client.actOnInfo(caller);
-                client.ClearPanel(rootPanel);
-                client.disposeCreateAccountADV();
+                guiHandler.passInfo(info, caller);
+                guiHandler.actOnInfo(caller);
+                guiHandler.ClearPanel(rootPanel);
+                guiHandler.disposeCreateAccountADV();
 
 
             }

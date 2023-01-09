@@ -1,6 +1,7 @@
-package com.SecurePassStore.App;
+package com.SecurePassStore.Client;
 
 //TODO implement methods
+
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;

@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.SecurePassStore.App.LoginHandler.checkUser;
+import static com.SecurePassStore.Client.LoginHandler.checkUser;
 
 public class LogIn extends JFrame
 {
@@ -16,7 +16,7 @@ public class LogIn extends JFrame
     private JTextField usernameField;
     private JButton newUserButton;
     private JButton loginButton;
-    private static Client client = Client.getClientInstance();
+    private static final Gui guiHandler = Gui.getClientInstance();
     private static LogIn logInHandler;
 
     private LogIn()
@@ -35,18 +35,18 @@ public class LogIn extends JFrame
                 char[] password = passwordField.getPassword();
                 if(checkUser(username, password) == 1)
                 {
-                    client.passInfo(password, logInHandler);
-                    client.showMainLanding(username);
+                    guiHandler.passInfo(password, logInHandler);
+                    guiHandler.showMainLanding(username);
                 }
                 else if(checkUser(username, password) == 0)
                 {
-                    client.showDialog(logInHandler, "Log In Failed, Wrong password", 2);
+                    guiHandler.showDialog(logInHandler, "Log In Failed, Wrong password", 2);
                 }
                 else
                 {
-                    client.showDialog(logInHandler, "user name does not exist. Create a new account", 2);
+                    guiHandler.showDialog(logInHandler, "user name does not exist. Create a new account", 2);
                 }
-                client.ClearPanel(rootPanel);
+                guiHandler.ClearPanel(rootPanel);
             }
         });
         newUserButton.addActionListener(new ActionListener()
@@ -54,7 +54,7 @@ public class LogIn extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-               client.showCreateAccount();
+               guiHandler.showCreateAccount();
             }
         });
     }

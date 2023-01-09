@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import static com.SecurePassStore.App.LoginHandler.validPasswordCheck;
-import static com.SecurePassStore.App.LoginHandler.addUser;
+import static com.SecurePassStore.Client.LoginHandler.validPasswordCheck;
+import static com.SecurePassStore.Client.LoginHandler.addUser;
 
 public class CreateAccout extends JFrame
 {
@@ -18,7 +18,7 @@ public class CreateAccout extends JFrame
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
     private JButton advOptionsButton;
-    private static Client client = Client.getClientInstance();
+    private static final Gui guiHandler = Gui.getClientInstance();
     private String suggestedPassword = null;
     private boolean localKey = false;
     private static CreateAccout createhandler;
@@ -46,14 +46,14 @@ public class CreateAccout extends JFrame
                 {
                     if (passwordField1.getPassword().length <= 8)
                     {
-                        client.showDialog(createhandler,"Password must be more than 8 characters long", 2);
+                        guiHandler.showDialog(createhandler,"Password must be more than 8 characters long", 2);
                     } else if(emailField.getText().length() < 6)
                     {
-                        client.showDialog(createhandler, "User name must be at least 6 letters", 2);
+                        guiHandler.showDialog(createhandler, "User name must be at least 6 letters", 2);
                     }
                     else if(!validPasswordCheck(passwordField1.getPassword()))
                     {
-                        client.showDialog(createhandler, "password must contain at least one upper case, lower case" +
+                        guiHandler.showDialog(createhandler, "password must contain at least one upper case, lower case" +
                                 ", number and symbol", 2);
                     }
                     else
@@ -62,19 +62,19 @@ public class CreateAccout extends JFrame
                         char[] password = passwordField1.getPassword();
                         if (addUser(email, password, localKey))
                         {
-                            client.showDialog(createhandler, "Account Created!", 3);
-                            client.ClearPanel(rootPanel);
-                            client.DisposeCreate();
+                            guiHandler.showDialog(createhandler, "Account Created!", 3);
+                            guiHandler.ClearPanel(rootPanel);
+                            guiHandler.DisposeCreate();
                         }
                         else
                             {
-                            client.showDialog(createhandler,"User Already Registered", 2);
+                            guiHandler.showDialog(createhandler,"User Already Registered", 2);
                         }
                         }
                 }
                 else
                 {
-                    client.showDialog(createhandler,"Passwords do not match", 2);
+                    guiHandler.showDialog(createhandler,"Passwords do not match", 2);
                 }
             }
         }
@@ -83,7 +83,7 @@ public class CreateAccout extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                client.ShowCreateAccountADV(new CreateAccout());
+                guiHandler.ShowCreateAccountADV(new CreateAccout());
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.SecurePassStore.App;
+package com.SecurePassStore.Client;
 
 import java.security.SecureRandom;
 
