@@ -1,4 +1,4 @@
-package com.SecurePassStore.Client.PC.Client;
+package com.SecurePassStore.Client.PC;
 
 
 public class SecurePassStore //entry point
