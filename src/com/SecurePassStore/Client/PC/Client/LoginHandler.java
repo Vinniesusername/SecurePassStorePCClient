@@ -1,10 +1,4 @@
-package com.SecurePassStore.Client;
-
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+package com.SecurePassStore.Client.PC.Client;
 
 
 public class LoginHandler //loginHandler handles operations for the Login Frame
@@ -36,7 +30,7 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
         return added;
     }
 
-    public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesnt exist
+    public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesn't exist
     {
         int matched = 1;
         if(client.contains(name)) {

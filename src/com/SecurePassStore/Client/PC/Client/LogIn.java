@@ -1,9 +1,9 @@
-package com.SecurePassStore.Client;
+package com.SecurePassStore.Client.PC.Client;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.SecurePassStore.Client.LoginHandler.checkUser;
+import static com.SecurePassStore.Client.PC.Client.LoginHandler.checkUser;
 
 public class LogIn extends JFrame
 {

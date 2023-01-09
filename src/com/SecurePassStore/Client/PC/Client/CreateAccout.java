@@ -1,11 +1,11 @@
-package com.SecurePassStore.Client;
+package com.SecurePassStore.Client.PC.Client;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import static com.SecurePassStore.Client.LoginHandler.validPasswordCheck;
-import static com.SecurePassStore.Client.LoginHandler.addUser;
+import static com.SecurePassStore.Client.PC.Client.LoginHandler.validPasswordCheck;
+import static com.SecurePassStore.Client.PC.Client.LoginHandler.addUser;
 
 public class CreateAccout extends JFrame
 {

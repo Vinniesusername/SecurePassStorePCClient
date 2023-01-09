@@ -1,4 +1,4 @@
-package com.SecurePassStore.Client;
+package com.SecurePassStore.Client.PC.Client;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -1,4 +1,4 @@
-package com.SecurePassStore.Sever;
+package com.SecurePassStore.Client.PC.Sever;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

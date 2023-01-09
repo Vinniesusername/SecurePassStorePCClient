@@ -1,5 +1,4 @@
-package com.SecurePassStore.Client;
-import java.sql.*;
+package com.SecurePassStore.Client.PC.Client;
 
 public class Client // client handles requests to the server program.
 {
