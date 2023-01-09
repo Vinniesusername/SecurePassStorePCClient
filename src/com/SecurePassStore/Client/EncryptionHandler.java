@@ -5,20 +5,25 @@ package com.SecurePassStore.Client;
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
 public class EncryptionHandler
 {
     private byte[] masterPasswordBytes = null;
     private String localKey = "";
-    private static int iterations = 10000;
+    public int iterations;
+
+    public int keyLength;
+
     private SecretKeySpec key;
     private static EncryptionHandler encryptionHandler;
     private  Cipher cipher;
-    private static LoginHandler lh = new LoginHandler();
+    private static final LoginHandler lh = LoginHandler.getInstance();
     Generator g = new Generator();
     private static char[] masterPassword = null;
-    private static Tools tool = new Tools();
+    private static final Tools tool = new Tools();
 
     public void startUp(char[] mp)
     {
@@ -29,15 +34,43 @@ public class EncryptionHandler
     private EncryptionHandler()
     {
         cipher = getCipher();
+        iterations = 10000;
+        keyLength = 512;
 
     }
 
     public static EncryptionHandler getInstance()
     {
         if(encryptionHandler == null)
+        {
             encryptionHandler = new EncryptionHandler();
+
+
+        }
         return encryptionHandler;
 
+
+    }
+
+    public byte[] getPasswordHash(char[] password, byte[] salt)
+    {
+        //TODO: may need to be adjusted before it's secure. look into it later
+
+        byte[] hashedPassword = null;
+
+        try
+        {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
+            PBEKeySpec spec = new PBEKeySpec( password, salt, iterations, keyLength );
+            SecretKey key = skf.generateSecret(spec);
+            hashedPassword = key.getEncoded( );
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
+        {
+
+            System.exit(1);
+        }
+        return hashedPassword;
     }
 
     public static SecretKeySpec getKey(byte[] salt)
