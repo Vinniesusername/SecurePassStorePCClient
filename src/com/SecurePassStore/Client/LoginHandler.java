@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 
-public class LoginHandler
+public class LoginHandler //loginHandler handles operations for the Login Frame
 {
     private static LoginHandler lh;
 
@@ -17,7 +17,7 @@ public class LoginHandler
     }
 
     private static final Client client = Client.getInstance();
-    private static Tools tool = new Tools();
+    private static final Tools tool = new Tools();
     private static final EncryptionHandler eh = EncryptionHandler.getInstance();
 
     public static boolean addUser(String userName, char[] password, boolean localKey)

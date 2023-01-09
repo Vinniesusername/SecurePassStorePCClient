@@ -3,7 +3,7 @@ package com.SecurePassStore.Client;
 import javax.swing.*;
 import java.awt.*;
 
-public class Gui
+public class Gui //Gui handles all user interface classes and is used to pass information between frames.
 {
     private static Gui guiHandler;
     private final LogIn login = LogIn.getInstance();

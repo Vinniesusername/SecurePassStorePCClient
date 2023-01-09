@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
-public class EncryptionHandler
+public class EncryptionHandler //encryptionHandler is the class that handles all hashing and encryption
 {
     private byte[] masterPasswordBytes = null;
     private String localKey = "";
@@ -73,7 +73,7 @@ public class EncryptionHandler
         return hashedPassword;
     }
 
-    public static SecretKeySpec getKey(byte[] salt)
+    public SecretKeySpec getKey(byte[] salt)
     {
         byte[] key;
         SecretKeySpec keySpec = null;

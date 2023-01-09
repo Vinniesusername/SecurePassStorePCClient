@@ -2,7 +2,7 @@ package com.SecurePassStore.Client;
 
 import java.security.SecureRandom;
 
-public class Generator
+public class Generator //Generator is a class to return generated passwords
 {
     public String generateNewPassword(int n, boolean lower, boolean upper, boolean numbers, boolean symbols)
     {

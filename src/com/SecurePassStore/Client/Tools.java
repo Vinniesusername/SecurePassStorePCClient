@@ -2,7 +2,7 @@ package com.SecurePassStore.Client;
 
 import java.security.SecureRandom;
 
-public class Tools
+public class Tools //collection of functions needed else where in the program
 {
     public  String byteArrayToHex(byte[] byteArray)
     {

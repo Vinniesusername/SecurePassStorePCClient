@@ -1,7 +1,7 @@
 package com.SecurePassStore.Client;
 import java.sql.*;
 
-public class Client
+public class Client // client handles requests to the server program.
 {
 
 
