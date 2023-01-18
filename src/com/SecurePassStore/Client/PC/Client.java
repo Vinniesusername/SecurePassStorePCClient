@@ -23,8 +23,6 @@ public class Client // client handles requests to the server program.
             conn = new Socket(InetAddress.getLocalHost(), 4444);
             out = new PrintWriter(conn.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-
             }
         catch(Exception e)
         {
@@ -86,9 +84,19 @@ public class Client // client handles requests to the server program.
          return password;
      }
 
-     public static void test()
+     public void test()
      {
-         
+         handler.out.println("0");
+         try
+         {
+             System.out.print(handler.in.readLine());
+         }
+         catch (Exception e)
+         {
+             System.out.println(e);
+         }
+
+
 
      }
 
