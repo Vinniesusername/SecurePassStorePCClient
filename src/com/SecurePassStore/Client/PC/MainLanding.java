@@ -3,6 +3,7 @@ package com.SecurePassStore.Client.PC;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
 
 
 public class MainLanding extends JFrame
@@ -41,13 +42,12 @@ public class MainLanding extends JFrame
                 eh.startUp(guiHandler.getMasterPassword());
                 String[] results = new String[2];
                 String username = guiHandler.getUsername();
-                results = client.getEntry("youtube account", guiHandler.getUsername());
+                results = client.getEntry("youtube account", username);
                 String password = null;
                 try
                 {
                     password = new String(eh.decryptPassword(tool.hexStringToByteArray(results[0]),
-                            tool.hexStringToByteArray(results[1])), "UTF-8");
-
+                            tool.hexStringToByteArray(results[1])), StandardCharsets.UTF_8);
                 } catch (Exception e)
                 {
                     e.printStackTrace();

@@ -1,17 +1,40 @@
 package com.SecurePassStore.Client.PC;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+
 public class Client // client handles requests to the server program.
 {
 
 
-    private static Client handler = null;
+    private static Client handler = Client.getInstance(); //client instance for handling everything
+    public Socket conn = null;
+    public PrintWriter out = null;
+    public BufferedReader in = null;
 
 
     private Client()
     {
 
+        try {
+            conn = new Socket(InetAddress.getLocalHost(), 4444);
+            out = new PrintWriter(conn.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
+
+            }
+        catch(Exception e)
+        {
+          e.printStackTrace();
+        }
     }
+
+
+
+
 
 
     boolean addUser(String user, String passwordHash, String salt, boolean localKey)
@@ -62,6 +85,14 @@ public class Client // client handles requests to the server program.
          String[] password = new String[2];
          return password;
      }
+
+     public static void test()
+     {
+         
+
+     }
+
+
 
 
 }
