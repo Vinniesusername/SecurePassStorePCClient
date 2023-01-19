@@ -67,7 +67,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
         }
         catch (NoSuchAlgorithmException | InvalidKeySpecException e)
         {
-
+            e.printStackTrace();
             System.exit(1);
         }
         return hashedPassword;
@@ -86,7 +86,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
 
         }
         return keySpec;
@@ -100,7 +100,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
             c = null;
         }
 
@@ -120,7 +120,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return encrypted;
@@ -139,7 +139,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return decrypted;
