@@ -7,7 +7,7 @@ public class SecurePassStore //entry point
     {
 
         Client hand = Client.getInstance();
-        hand.test();
+        hand.connectToServer("null");
 
     }
 }

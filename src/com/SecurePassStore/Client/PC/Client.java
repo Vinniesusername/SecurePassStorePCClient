@@ -10,29 +10,18 @@ public class Client // client handles requests to the server program.
 {
 
 
-    private static Client handler = Client.getInstance(); //client instance for handling everything
+    private static Client handler = null; //client instance for handling everything
     public Socket conn = null;
     public PrintWriter out = null;
     public BufferedReader in = null;
 
+    private int port = 4422;
+
 
     private Client()
     {
-
-        try {
-            conn = new Socket(InetAddress.getLocalHost(), 4444);
-            out = new PrintWriter(conn.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            }
-        catch(Exception e)
-        {
-          e.printStackTrace();
-        }
+        handler = Client.getInstance();
     }
-
-
-
-
 
 
     boolean addUser(String user, String passwordHash, String salt, boolean localKey)
@@ -84,11 +73,25 @@ public class Client // client handles requests to the server program.
          return password;
      }
 
-     public void test()
+     public void connectToServer(String q) //q is the query being sent from client to server
      {
-         handler.out.println("0");
+         String statement = "";
+
+
+
+         try {
+             handler.conn = new Socket(InetAddress.getLocalHost(), handler.port);
+             handler.out = new PrintWriter(conn.getOutputStream(), true);
+             handler.in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+         }
+         catch(Exception e)
+         {
+             e.printStackTrace();
+         }
+
          try
          {
+             handler.out.println(q);
              System.out.print(handler.in.readLine());
          }
          catch (Exception e)
@@ -96,11 +99,5 @@ public class Client // client handles requests to the server program.
              System.out.println(e);
          }
 
-
-
      }
-
-
-
-
 }

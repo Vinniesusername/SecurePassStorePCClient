@@ -31,7 +31,7 @@ public class CreateAccout extends JFrame
         setSize(850, 350);
         setLocationRelativeTo(null);
         setResizable(false);
-        setTitle("Secure Password Store 0.1");
+        setTitle(guiHandler.version);
 
 
 

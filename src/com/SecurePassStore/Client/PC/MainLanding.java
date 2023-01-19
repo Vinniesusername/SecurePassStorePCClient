@@ -26,6 +26,7 @@ public class MainLanding extends JFrame
     private MainLanding()
     {
         add(rootPanel);
+        setTitle(guiHandler.version);
         setSize(550, 500);
         setLocationRelativeTo(null);
 

@@ -14,6 +14,8 @@ public class Gui //Gui handles all user interface classes and is used to pass in
     private char[] masterPassword; // storing master password in RAM, never to be sent to server!
     private String username = null;
 
+    public String version = "SPS Version 0.3 java";
+
 
     private Gui()
     {
