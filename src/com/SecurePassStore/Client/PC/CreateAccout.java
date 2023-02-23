@@ -18,10 +18,10 @@ public class CreateAccout extends JFrame
     private JLabel passwordLabel1;
     private JLabel passwordLabel2;
     private JButton advOptionsButton;
-    private static final Gui guiHandler = Gui.getClientInstance();
     private String suggestedPassword = null;
     private boolean localKey = false;
     private static CreateAccout createhandler;
+    private static final Gui guiHandler = Gui.getInstance();
 
 
     private CreateAccout()
@@ -31,7 +31,6 @@ public class CreateAccout extends JFrame
         setSize(850, 350);
         setLocationRelativeTo(null);
         setResizable(false);
-        setTitle(guiHandler.version);
 
 
 
@@ -54,7 +53,7 @@ public class CreateAccout extends JFrame
                     else if(!validPasswordCheck(passwordField1.getPassword()))
                     {
                         guiHandler.showDialog(createhandler, "password must contain at least one upper case, lower case" +
-                                ", number and symbol", 2);
+                                ", number and symbol", 2); // TODO: add clarity as to which symbols are allowed
                     }
                     else
                         {
@@ -66,7 +65,7 @@ public class CreateAccout extends JFrame
                             guiHandler.ClearPanel(rootPanel);
                             guiHandler.DisposeCreate();
                         }
-                        else
+                        else //TODO: check for other cases where this could fail and account for those
                             {
                             guiHandler.showDialog(createhandler,"User Already Registered", 2);
                         }

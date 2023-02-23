@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 public class MainLanding extends JFrame
 {
 
-    private static final Gui guiHandler = Gui.getClientInstance();
+    private static final Gui guiHandler = Gui.getInstance();
     private static MainLanding mainLanding;
     private static final Client client = Client.getInstance();
     private static final EncryptionHandler eh = EncryptionHandler.getInstance();
@@ -26,7 +26,6 @@ public class MainLanding extends JFrame
     private MainLanding()
     {
         add(rootPanel);
-        setTitle(guiHandler.version);
         setSize(550, 500);
         setLocationRelativeTo(null);
 

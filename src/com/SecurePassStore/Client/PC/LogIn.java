@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.SecurePassStore.Client.PC.LoginHandler.checkUser;
 
 public class LogIn extends JFrame
 {
@@ -16,15 +15,16 @@ public class LogIn extends JFrame
     private JTextField usernameField;
     private JButton newUserButton;
     private JButton loginButton;
-    private static final Gui guiHandler = Gui.getClientInstance();
-    private static LogIn logInHandler;  //re name this to avoid confusion
+    private static  Gui guiHandler = Gui.getInstance();
+    private static LogIn handler;
+
+    public static  LoginHandler loginHandler = LoginHandler.getInstance();
 
     private LogIn()
     {
         add(rootPanel);
         setSize(350, 150);
         setLocationRelativeTo(null);
-        setTitle(guiHandler.version);
         setResizable(false);
 
         logInButton.addActionListener(new ActionListener() {
@@ -33,18 +33,18 @@ public class LogIn extends JFrame
             {
                 String username = usernameField.getText();
                 char[] password = passwordField.getPassword();
-                if(checkUser(username, password) == 1)
+                if(loginHandler.checkUser(username, password) == 1) //if user authenticates
                 {
-                    guiHandler.passInfo(password, logInHandler);
+                    guiHandler.passInfo(password, handler); //passing a Login frame to passinfo will set master password
                     guiHandler.showMainLanding(username);
                 }
-                else if(checkUser(username, password) == 0)
+                else if(loginHandler.checkUser(username, password) == 0) //bad password
                 {
-                    guiHandler.showDialog(logInHandler, "Log In Failed, Wrong password", 2);
+                    guiHandler.showDialog(handler, "Log In Failed, Wrong password", 2);
                 }
                 else
                 {
-                    guiHandler.showDialog(logInHandler, "user name does not exist. Create a new account", 2);
+                    guiHandler.showDialog(handler, "user name does not exist. Create a new account", 2);
                 }
                 guiHandler.ClearPanel(rootPanel);
             }
@@ -59,13 +59,14 @@ public class LogIn extends JFrame
         });
     }
 
+
     public static LogIn getInstance()
     {
-        if (logInHandler == null)
+        if (handler == null)
         {
-            logInHandler = new LogIn();
+            handler = new LogIn();
         }
-        return logInHandler;
+        return handler;
     }
 
 }

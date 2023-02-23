@@ -6,8 +6,8 @@ public class SecurePassStore //entry point
     public static void main(String[] args)
     {
 
-        Client hand = Client.getInstance();
-        hand.connectToServer("null");
+        Gui g = Gui.getInstance();
+        g.startup();
 
     }
 }

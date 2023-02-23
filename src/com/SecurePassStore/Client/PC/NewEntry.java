@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class NewEntry extends JFrame
 {
 
-    private static final Gui guiHandler = Gui.getClientInstance();
+    private static final Gui guiHandler = Gui.getInstance();
     private static NewEntry newEntry;
     private String generatedPassword;
     private static final EncryptionHandler eh = EncryptionHandler.getInstance();

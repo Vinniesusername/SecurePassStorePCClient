@@ -31,7 +31,7 @@ public class Tools //collection of functions needed else where in the program
 
         return byteArray;
     }
-    public byte[] makeSalt()
+    public byte[] makeSalt() //Generate 32 Bytes of salt. used in all encryption
     {
         SecureRandom saltGen = new SecureRandom();
         byte[] salt = new byte[32];
@@ -39,7 +39,7 @@ public class Tools //collection of functions needed else where in the program
         return salt;
     }
 
-    public boolean isSymbol(char c)
+    public boolean isSymbol(char c) //the list of symbols that are allowed in a password
     {
         boolean x = false;
         String symbols = "!@#$%^&*";

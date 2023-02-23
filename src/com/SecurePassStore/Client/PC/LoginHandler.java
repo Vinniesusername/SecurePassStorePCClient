@@ -5,10 +5,7 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
 {
     private static LoginHandler lh;
 
-    private LoginHandler()
-    {
-
-    }
+    private LoginHandler() {}
 
     private static final Client client = Client.getInstance();
     private static final Tools tool = new Tools();
@@ -30,7 +27,7 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
         return added;
     }
 
-    public static int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesn't exist
+    public int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesn't exist
     {
         int matched = 1;
         if(client.contains(name)) {

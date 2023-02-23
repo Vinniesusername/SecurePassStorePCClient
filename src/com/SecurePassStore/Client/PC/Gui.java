@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Gui //Gui handles all user interface classes and is used to pass information between frames.
 {
-    private static Gui guiHandler;
+    public static Gui handler = null;
     private final LogIn login = LogIn.getInstance();
     private final CreateAccout createAccout = CreateAccout.getInstance();
     private final MainLanding mainLanding = MainLanding.getInstance();
@@ -17,16 +17,12 @@ public class Gui //Gui handles all user interface classes and is used to pass in
     public String version = "SPS Version 0.3 java";
 
 
-    private Gui()
+    private Gui() {}
+    public static Gui getInstance()
     {
-
-
-    }
-    public static Gui getClientInstance()
-    {
-        if(guiHandler == null)
-            guiHandler = new Gui();
-        return guiHandler;
+        if(handler == null)
+            handler = new Gui();
+        return handler;
     }
 
     void passInfo(String[] info, JFrame frame)
@@ -50,7 +46,7 @@ public class Gui //Gui handles all user interface classes and is used to pass in
         }
         else if(frame instanceof  LogIn)
         {
-            guiHandler.masterPassword = info;
+            handler.masterPassword = info;
         }
     }
 
@@ -70,17 +66,17 @@ public class Gui //Gui handles all user interface classes and is used to pass in
 
     public char[] getMasterPassword()
     {
-        if(guiHandler.masterPassword == null)
+        if(handler.masterPassword == null)
         {
             //TODO: handle this case. throw exception?
             System.out.println("password not there");
         }
-        return guiHandler.masterPassword;
+        return handler.masterPassword;
     }
 
     public String getUsername()
     {
-        return guiHandler.username;
+        return handler.username;
     }
 
 
@@ -89,7 +85,7 @@ public class Gui //Gui handles all user interface classes and is used to pass in
     public void startup()
     {
         showLogin();
-        if(showDialog(guiHandler.login,"This is only intended to be used for educational purposes. do not attempt to use this program " +
+        if(showDialog(handler.login,"This is only intended to be used for educational purposes. do not attempt to use this program " +
                 "to handle your personal accounts. do you agree?", 1) != 0)
         {
             System.exit(0);
@@ -98,75 +94,75 @@ public class Gui //Gui handles all user interface classes and is used to pass in
 
     void showLogin()
     {
-        guiHandler.login.setVisible(true);
-        guiHandler.login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        handler.login.setVisible(true);
+        handler.login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     void DisposeLogin()
     {
-        guiHandler.login.dispose();
+        handler.login.dispose();
     }
 
     void showCreateAccount()
     {
-        guiHandler.createAccout.setVisible(true);
-        guiHandler.createAccout.setAlwaysOnTop(true);
-        guiHandler.createAccout.requestFocus();
+        handler.createAccout.setVisible(true);
+        handler.createAccout.setAlwaysOnTop(true);
+        handler.createAccout.requestFocus();
     }
 
     void ShowCreateAccountADV(CreateAccout caller)
     {
-        guiHandler.cAAdv.setVisible(true);
-        guiHandler.cAAdv.setAlwaysOnTop(true);
-        guiHandler.cAAdv.setCaller(caller);
+        handler.cAAdv.setVisible(true);
+        handler.cAAdv.setAlwaysOnTop(true);
+        handler.cAAdv.setCaller(caller);
     }
 
     void ShowCreateAccountADV(NewEntry caller)
     {
 
-        guiHandler.cAAdv.hideKey(true);
-        guiHandler.cAAdv.setVisible(true);
-        guiHandler.cAAdv.setAlwaysOnTop(true);
-        guiHandler.cAAdv.setCaller(caller);
+        handler.cAAdv.hideKey(true);
+        handler.cAAdv.setVisible(true);
+        handler.cAAdv.setAlwaysOnTop(true);
+        handler.cAAdv.setCaller(caller);
     }
 
 
     void showNewEntry()
     {
-        guiHandler.newEntry.setVisible(true);
+        handler.newEntry.setVisible(true);
     }
 
     void disposeNewEntry()
     {
 
-        guiHandler.newEntry.dispose();
+        handler.newEntry.dispose();
     }
 
     void disposeCreateAccountADV()
     {
-        guiHandler.cAAdv.setCaller(null);
-        guiHandler.cAAdv.hideKey(false);
-        guiHandler.cAAdv.dispose();
+        handler.cAAdv.setCaller(null);
+        handler.cAAdv.hideKey(false);
+        handler.cAAdv.dispose();
 
 
     }
 
     void DisposeCreate()
     {
-        guiHandler.createAccout.dispose();
+        handler.createAccout.dispose();
     }
 
     void showMainLanding(String username)
     {
-        guiHandler.username = username.toLowerCase();
-        guiHandler.DisposeLogin();
-        guiHandler.mainLanding.setVisible(true);
-        guiHandler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        handler.username = username.toLowerCase();
+        handler.DisposeLogin();
+        handler.mainLanding.setVisible(true);
+        handler.mainLanding.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     void DisposeMainLanding()
     {
-        guiHandler.mainLanding.dispose();
+        handler.mainLanding.dispose();
     }
 
     void ClearPanel(JPanel root)
@@ -193,13 +189,13 @@ public class Gui //Gui handles all user interface classes and is used to pass in
         switch(mode)
         {
             case 0:
-                return guiHandler.login;
+                return handler.login;
             case 1:
-                return guiHandler.createAccout;
+                return handler.createAccout;
             case 2:
-                return guiHandler.mainLanding;
+                return handler.mainLanding;
             case 3:
-                return guiHandler.cAAdv;
+                return handler.cAAdv;
             default:
                 return new JFrame();
         }
@@ -211,23 +207,23 @@ public class Gui //Gui handles all user interface classes and is used to pass in
         int status = -1;
         if (screen instanceof LogIn)
         {
-           root = guiHandler.login;
+           root = handler.login;
         }
         else if(screen instanceof CreateAccout)
         {
-            root = guiHandler.createAccout;
+            root = handler.createAccout;
         }
         else if(screen instanceof CreateAccountAdv)
         {
-            root = guiHandler.cAAdv;
+            root = handler.cAAdv;
         }
         else if(screen instanceof MainLanding)
         {
-            root = guiHandler.mainLanding;
+            root = handler.mainLanding;
         }
         else if (screen instanceof NewEntry)
         {
-            root = guiHandler.newEntry;
+            root = handler.newEntry;
         }
         else
         {

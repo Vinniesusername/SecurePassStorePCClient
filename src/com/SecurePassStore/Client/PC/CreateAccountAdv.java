@@ -21,7 +21,7 @@ public class CreateAccountAdv extends JFrame {
     private JSlider charSlider;
     private JLabel slideLabel;
     private JFrame caller;
-    private static final Gui guiHandler = Gui.getClientInstance();
+    private static final Gui guiHandler = Gui.getInstance();
 
     public CreateAccountAdv()
     {
@@ -29,7 +29,6 @@ public class CreateAccountAdv extends JFrame {
         setSize(850, 350);
         setLocationRelativeTo(null);
         setResizable(false);
-        setTitle(guiHandler.version);
 
 
         generateMasterPasswordButton.addActionListener(new ActionListener() {
