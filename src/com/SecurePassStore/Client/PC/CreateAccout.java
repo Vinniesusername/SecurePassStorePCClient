@@ -22,6 +22,7 @@ public class CreateAccout extends JFrame
     private boolean localKey = false;
     private static CreateAccout createhandler;
     private static final Gui guiHandler = Gui.getInstance();
+    private static LoginHandler loginHandler = LoginHandler.getInstance();
 
 
     private CreateAccout()

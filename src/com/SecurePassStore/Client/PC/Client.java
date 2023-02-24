@@ -2,21 +2,28 @@ package com.SecurePassStore.Client.PC;
 
 import javax.net.ssl.*;
 import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 
 public class Client // client handles requests to the server program.
 {
 
+    //client setup
     private static Client handler = null; // one object following singleton pattern.
-
     private static Gui guiHandler = Gui.getInstance();
-    public SecureRandom sr = new SecureRandom();
+    private String userName = null;
+
+
+    //socket setup
+    private static final String[] protocols = new String[]{"TLSv1.3"};
+    private static final String[] ciphers = new String[]{"TLS_AES_256_GCM_SHA384", "TLS_AES_128_GCM_SHA256"}; //could add more?
     public SSLSocket conn;
     public BufferedReader in = null;
     public PrintWriter out = null;
+    public SecureRandom sr = new SecureRandom();
+    public int sessionID;
+
+
 
 
     //temp, remove this at some point
@@ -25,13 +32,11 @@ public class Client // client handles requests to the server program.
     final String kspass = "testclient";
 
 
-    private int port = 4422;
-    private static final String[] protocols = new String[]{"TLSv1.3"};
-
-    private static final String[] ciphers = new String[]{"TLS_AES_256_GCM_SHA384", "TLS_AES_128_GCM_SHA256"}; //could add more?
 
 
-    private Client() {
+    private Client()
+    {
+        sessionID = genSessionID();
     }
 
     public void startup()
@@ -59,9 +64,29 @@ public class Client // client handles requests to the server program.
     }
 
 
-    public boolean contains(String username) {
-        // magic method server.contains()
-        return true;
+    public boolean contains(String username)
+    {
+        boolean flag = false;
+        try {
+            String q = "1;" + sessionID + ";" + username + ";null;null";
+            handler.out.println(q);
+            handler.out.flush();
+            String re = "";
+            while (re.equals(""))
+                re = handler.in.readLine();
+            String[] parts = re.split(";", 5);
+            if(parts[0].equals("null"))
+                return false; //change this later
+            if(Integer.parseInt(parts[0])== 1)
+                flag = true;
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return flag;
     }
 
     public String getSalt(String username) {
@@ -119,7 +144,7 @@ public class Client // client handles requests to the server program.
 
             // write to socket to test it
             // write to socket to test it
-            int randomRequestId =  genRandom();
+            int randomRequestId =  genSessionID();
 
             handler.out.println("0;" + String.valueOf(randomRequestId) + ";null;null");
             handler.out.println();
@@ -155,8 +180,9 @@ public class Client // client handles requests to the server program.
         return status; // 0 = good, -1 no exceptions but didn't get the response, -2 exception
     }
 
-    public int genRandom() //generates a random request id that is used for debugging and logging
+    public int genSessionID() //generates a random request id that is used for debugging and logging
     {
+        //TODO not consisit with docs. change it
         int n = sr.nextInt();
         n = n % 1000000; // keep it positive and relatively small
         return n;
