@@ -7,8 +7,8 @@ public class SecurePassStore //entry point
 {
     public static void main(String[] args) throws IOException
     {
-        Gui g = Gui.getInstance();
-        g.startup();
+        Client c = Client.getInstance();
+        c.startup();
 
     }
 }

@@ -41,7 +41,16 @@ public class Client // client handles requests to the server program.
 
     public void startup()
     {
-       guiHandler.startup();
+        try
+        {
+            handler.connect();
+            guiHandler.startup();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -89,9 +98,26 @@ public class Client // client handles requests to the server program.
         return flag;
     }
 
-    public String getSalt(String username) {
-        // magic method server.getSalt()
+    public String getCSalt(String username)
+    {
         String salt = "";
+        String state = "4;" + sessionID + ";" + username + ";null;null";
+        handler.out.println(state);
+        String r = "";
+        while(r != null && r.equals(""))
+        {
+            try
+            {
+                r = handler.in.readLine();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        String[] parts = r.split(";", 5);
+        salt = parts[2];
+
         return salt;
     }
 

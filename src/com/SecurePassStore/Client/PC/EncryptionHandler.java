@@ -34,7 +34,7 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
     private EncryptionHandler()
     {
         cipher = getCipher();
-        iterations = 10000;
+        iterations = 100000;
         keyLength = 512;
 
     }
@@ -54,8 +54,6 @@ public class EncryptionHandler //encryptionHandler is the class that handles all
 
     public byte[] getPasswordHash(char[] password, byte[] salt)
     {
-        //TODO: may need to be adjusted before it's secure. look into it later
-
         byte[] hashedPassword = null;
 
         try

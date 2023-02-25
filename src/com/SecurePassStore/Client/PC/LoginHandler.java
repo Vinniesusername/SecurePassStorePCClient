@@ -29,23 +29,38 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
 
     public int checkUser(String name, char[] password) // 1 = true, 0 = false, 2 = username doesn't exist
     {
-        int matched = 1;
-        if(client.contains(name)) {
-            byte[] passwordBytes = eh.getPasswordHash(password, tool.hexStringToByteArray(client.getSalt(name)));
-            byte[] passwordRecord = tool.hexStringToByteArray(client.getPassword(name));
+        int added = 0;
+        byte[] salt = client.getCSalt(name).getBytes();
+        byte[] passwordHash = eh.getPasswordHash(password, salt);
 
-            for (int i = 0; i < passwordBytes.length; i++)
+
+        String state = "3;" + client.sessionID + ";" + name + ";" + String.valueOf(passwordHash) + ";null";
+        client.out.println(state);
+        client.out.flush();
+        String re = "";
+        while(re != null && re.equals(""))
+        {
+            try
             {
-                if (passwordRecord[i] != passwordBytes[i])
-                {
-                    matched = 0;
-                    break;
-                }
+                re = client.in.readLine();
             }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
         }
-        else
-            matched = 2;
-        return matched;
+        String[] parts = re.split(";", 5);
+        if(Integer.parseInt(parts[0]) == 3)
+        {
+            added = 1;
+        }
+        else if(!Boolean.parseBoolean(parts[4]))
+        {
+            added = 2;
+        }
+
+        return added;
     }
 
 
