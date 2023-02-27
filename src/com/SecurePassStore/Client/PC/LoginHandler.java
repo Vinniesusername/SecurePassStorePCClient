@@ -11,7 +11,7 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
     private static final Tools tool = new Tools();
     private static final EncryptionHandler eh = EncryptionHandler.getInstance();
 
-    public static boolean addUser(String userName, char[] password, boolean localKey)
+    public boolean addUser(String userName, char[] password, boolean localKey)
     {
         boolean added = false;
         if (client.contains(userName))
@@ -66,7 +66,7 @@ public class LoginHandler //loginHandler handles operations for the Login Frame
 
 
 
-    public static boolean validPasswordCheck(char[] password)
+    public boolean validPasswordCheck(char[] password)
     {
         boolean valid = false;
         boolean numbers = false;

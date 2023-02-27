@@ -79,10 +79,18 @@ public class Client // client handles requests to the server program.
         try {
             String q = "1;" + sessionID + ";" + username + ";null;null";
             handler.out.println(q);
+            handler.out.println();
             handler.out.flush();
+            if(handler.out.checkError())
+            {
+                throw new Exception("printwriter I/O problem");
+            }
             String re = "";
-            while (re.equals(""))
+            while (re == null || re.equals(""))
+            {
                 re = handler.in.readLine();
+            }
+
             String[] parts = re.split(";", 5);
             if(parts[0].equals("null"))
                 return false; //change this later
@@ -172,7 +180,7 @@ public class Client // client handles requests to the server program.
             // write to socket to test it
             int randomRequestId =  genSessionID();
 
-            handler.out.println("0;" + String.valueOf(randomRequestId) + ";null;null");
+            handler.out.println("0;" + String.valueOf(randomRequestId) + ";null;null;null");
             handler.out.println();
             handler.out.flush();
 

@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import static com.SecurePassStore.Client.PC.LoginHandler.validPasswordCheck;
-import static com.SecurePassStore.Client.PC.LoginHandler.addUser;
+
+
 
 public class CreateAccout extends JFrame
 {
@@ -51,7 +51,7 @@ public class CreateAccout extends JFrame
                     {
                         guiHandler.showDialog(createhandler, "User name must be at least 6 letters", 2);
                     }
-                    else if(!validPasswordCheck(passwordField1.getPassword()))
+                    else if(!loginHandler.validPasswordCheck(passwordField1.getPassword()))
                     {
                         guiHandler.showDialog(createhandler, "password must contain at least one upper case, lower case" +
                                 ", number and symbol", 2); // TODO: add clarity as to which symbols are allowed
@@ -60,7 +60,7 @@ public class CreateAccout extends JFrame
                         {
                         String email = emailField.getText();
                         char[] password = passwordField1.getPassword();
-                        if (addUser(email, password, localKey))
+                        if (loginHandler.addUser(email, password, localKey))
                         {
                             guiHandler.showDialog(createhandler, "Account Created!", 3);
                             guiHandler.ClearPanel(rootPanel);
